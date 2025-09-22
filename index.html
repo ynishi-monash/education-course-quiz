@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find your course crush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1 class="title">Find your course crush</h1>
+            <div class="progress-container" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="quiz-container" id="quizContainer">
+                <div class="welcome-card" id="welcomeCard">
+                    <div class="welcome-content">
+                        <h2 class="welcome-title">👋 G'day! Let's find your perfect course</h2>
+                        <p class="welcome-subtitle">First things first — what should we call you?</p>
+                        
+                        <form class="name-form" id="nameForm">
+                            <div class="name-input-container">
+                                <label for="nameInput" class="name-label">Your name</label>
+                                <input 
+                                    type="text" 
+                                    id="nameInput" 
+                                    class="name-input" 
+                                    placeholder="Enter your first name"
+                                    autocomplete="given-name"
+                                    required
+                                    maxlength="50"
+                                >
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large" id="startQuizBtn">
+                                Let's get started! →
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="year-card hidden" id="yearCard">
+                    <div class="year-content">
+                        <h2 class="year-title" id="yearTitle">Thanks, [Name]! 📚</h2>
+                        <p class="year-subtitle">What year of school are you in?</p>
+                        
+                        <div class="year-options">
+                            <button type="button" class="option cards year-option" data-year="year10">
+                                📖 Year 10
+                            </button>
+                            <button type="button" class="option cards year-option" data-year="year11">
+                                📚 Year 11
+                            </button>
+                            <button type="button" class="option cards year-option" data-year="year12">
+                                🎓 Year 12
+                            </button>
+                            <button type="button" class="option cards year-option" data-year="neither">
+                                🏫 Neither (finished school/other)
+                            </button>
+                            <button type="button" class="option cards year-option" data-year="parent">
+                                👨‍👩‍👧‍👦 I am a parent/guardian
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parent-message-card hidden" id="parentMessageCard">
+                    <div class="parent-message-content">
+                        <h2 class="parent-message-title">👨‍👩‍👧‍👦 Great to have you here!</h2>
+                        <div class="parent-message-text">
+                            <p>This quiz is designed for students exploring their teaching pathway options.</p>
+                            <p><strong>When answering the questions, please put yourself in your child's shoes</strong> — think about their interests, strengths, and what might excite them about teaching.</p>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-large" id="parentContinueBtn">
+                            Got it, let's continue! →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="question-card hidden" id="questionCard">
+                    <h2 class="question-text" id="questionText"></h2>
+                    <p class="question-subtitle" id="questionSubtitle"></p>
+                    <div class="options-container" id="optionsContainer"></div>
+                    
+                    <div class="quiz-actions">
+                        <button type="button" class="btn btn-secondary" id="backBtn" aria-label="Go back to previous question">
+                            ← Back
+                        </button>
+                    </div>
+                </div>
+
+                <div class="result-card hidden" id="resultCard">
+                    <div class="result-content">
+                        <h2 class="result-title" id="resultTitle"></h2>
+                        <p class="result-blurb" id="resultBlurb"></p>
+                        
+                        <div class="program-details" id="programDetails">
+                            <h3 class="program-title" id="programTitle"></h3>
+                            <div class="program-info">
+                                <div class="program-campus" id="programCampus"></div>
+                                <div class="program-notes" id="programNotes"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-actions">
+                            <a href="#" class="btn btn-primary btn-large" id="exploreCourseBtn" aria-label="Explore this course">
+                                Explore course
+                            </a>
+                            <button type="button" class="btn btn-secondary" id="startOverBtn" aria-label="Start the quiz over">
+                                Start over
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="feedback-overlay hidden" id="feedbackOverlay">
+            <div class="feedback-content">
+                <div class="feedback-icon" id="feedbackIcon">✨</div>
+                <h2 class="feedback-title" id="feedbackTitle">Good choice!</h2>
+                <p class="feedback-message" id="feedbackMessage">Loading next question...</p>
+                <button type="button" class="btn btn-primary btn-large feedback-continue" id="feedbackContinueBtn" aria-label="Continue to next question">
+                    Continue →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "schema": "v1",
+    "title": "Find your course crush",
+    "progressWeights": {
+      "q_age_group": 0.25,
+      "q_primary_path": 0.25,
+      "q_ps_hpe": 0.15,
+      "q_ps_inclusion": 0.15,
+      "q_secondary_area": 0.35
+    }
+  },
+  "questions": [
+    {
+      "id": "q_age_group",
+      "type": "single",
+      "ui": "cards",
+      "text": "Which age group makes you light up the most?",
+      "options": [
+        { "id": "early_primary", "label": "🌱 Little ones (0–12)" },
+        { "id": "primary_only", "label": "📚 Primary kids (5–12)" },
+        { "id": "primary_secondary", "label": "🎒 Kids & teens (5–18)" },
+        { "id": "secondary_only", "label": "🎤 Teens (12–18)" }
+      ],
+      "next": {
+        "early_primary": "out_early_primary",
+        "primary_only": "q_primary_path",
+        "primary_secondary": "q_ps_hpe",
+        "secondary_only": "q_secondary_area"
+      }
+    },
+    {
+      "id": "q_primary_path",
+      "type": "single",
+      "ui": "cards",
+      "text": "Do you want to keep it simple, or mix it up?",
+      "subtitle": "Double degrees take 4 years too — same time, extra options.",
+      "options": [
+        {
+          "id": "primary_double",
+          "label": "🔀 Double degree with Arts/Business/Fine Art/Music/Science"
+        },
+        { "id": "primary_single", "label": "🎯 Straight up Primary Education" }
+      ],
+      "next": {
+        "primary_double": "out_primary_double",
+        "primary_single": "out_primary_single"
+      }
+    },
+    {
+      "id": "q_ps_hpe",
+      "type": "single",
+      "ui": "chips",
+      "text": "Are you into Health & PE?",
+      "options": [
+        { "id": "yes_hpe", "label": "💪 Yep, Health & PE is my jam" },
+        { "id": "no_hpe", "label": "🙅‍♀️ Not really my thing" }
+      ],
+      "next": {
+        "yes_hpe": "out_ps_hpe",
+        "no_hpe": "q_ps_inclusion"
+      }
+    },
+    {
+      "id": "q_ps_inclusion",
+      "type": "single",
+      "ui": "chips",
+      "text": "How important is inclusion to you?",
+      "options": [
+        {
+          "id": "incl_focus",
+          "label": "💖 Super important — make it my focus"
+        },
+        { "id": "incl_not_focus", "label": "🤷 Not really my thing" }
+      ],
+      "next": {
+        "incl_focus": "out_ps_inclusive",
+        "incl_not_focus": "out_ps_general"
+      }
+    },
+    {
+      "id": "q_secondary_area",
+      "type": "single",
+      "ui": "cards-grid",
+      "text": "What’s your dream teaching area (secondary)?",
+      "options": [
+        { "id": "sec_arts_lang_media", "label": "🎭 Arts, languages & media" },
+        { "id": "sec_business_econ", "label": "💼 Business & economics" },
+        { "id": "sec_music", "label": "🎶 Music" },
+        { "id": "sec_science_tech", "label": "🔬 Science & digital tech" },
+        { "id": "sec_visual_arts", "label": "🎨 Visual arts" },
+        { "id": "sec_hpe", "label": "🏃 Health & PE" }
+      ],
+      "next": {
+        "sec_arts_lang_media": "out_sec_arts_lang_media",
+        "sec_business_econ": "out_sec_business_econ",
+        "sec_music": "out_sec_music",
+        "sec_science_tech": "out_sec_science_tech",
+        "sec_visual_arts": "out_sec_visual_arts",
+        "sec_hpe": "out_sec_hpe"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "out_early_primary",
+      "title": "Early Childhood & Primary Education",
+      "programId": "prog_ecpe",
+      "blurb": "Play-based learning, creativity and helping kids grow in every way."
+    },
+    {
+      "id": "out_primary_double",
+      "title": "Primary Education — Double Degree",
+      "programId": "prog_primary_double",
+      "blurb": "Primary + a second passion (Arts/Business/Fine Art/Music/Science). Same 4 years, bigger toolkit."
+    },
+    {
+      "id": "out_primary_single",
+      "title": "Bachelor of Primary Education",
+      "programId": "prog_primary_single",
+      "blurb": "Teach across all key primary subjects, with loads of classroom practice."
+    },
+    {
+      "id": "out_ps_hpe",
+      "title": "Primary & Secondary Health + PE",
+      "programId": "prog_ps_hpe",
+      "blurb": "Wellbeing, coaching and movement — teach HPE across year levels."
+    },
+    {
+      "id": "out_ps_inclusive",
+      "title": "Primary & Secondary Inclusive & Special Education",
+      "programId": "prog_ps_inclusive",
+      "blurb": "Champion inclusion and support diverse learners across ages 5–18."
+    },
+    {
+      "id": "out_ps_general",
+      "title": "Primary & Secondary Education",
+      "programId": "prog_ps_general",
+      "blurb": "Teach across stages of development and specialise at secondary."
+    },
+    {
+      "id": "out_sec_arts_lang_media",
+      "title": "Secondary Ed (Hons) + Arts",
+      "programId": "prog_sec_arts",
+      "blurb": "Two teaching areas from languages, humanities, media, psychology and more."
+    },
+    {
+      "id": "out_sec_business_econ",
+      "title": "Secondary Ed (Hons) + Business",
+      "programId": "prog_sec_business",
+      "blurb": "Teach accounting, business management, economics or legal studies."
+    },
+    {
+      "id": "out_sec_music",
+      "title": "Secondary Ed (Hons) + Music",
+      "programId": "prog_sec_music",
+      "blurb": "Specialise in music education — performance, pedagogy and curriculum."
+    },
+    {
+      "id": "out_sec_science_tech",
+      "title": "Secondary Ed (Hons) + Science",
+      "programId": "prog_sec_science",
+      "blurb": "Choose from maths, biology, chemistry, physics, psychology or digital technologies."
+    },
+    {
+      "id": "out_sec_visual_arts",
+      "title": "Secondary Ed (Hons) + Fine Art",
+      "programId": "prog_sec_fineart",
+      "blurb": "Specialise in visual arts with a double degree format."
+    },
+    {
+      "id": "out_sec_hpe",
+      "title": "Secondary Health & Physical Education",
+      "programId": "prog_sec_hpe",
+      "blurb": "Become a specialist HPE teacher and add a third area such as business or maths."
+    }
+  ]
+}
