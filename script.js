@@ -2,6 +2,7 @@ class QuizApp {
   constructor() {
     this.questionsData = null;
     this.programsData = null;
+    this.configData = null;
     this.currentQuestionId = null;
     this.selectedAnswer = null;
     this.history = [];
@@ -26,17 +27,19 @@ class QuizApp {
 
   async loadData() {
     try {
-      const [questionsResponse, programsResponse] = await Promise.all([
+      const [questionsResponse, programsResponse, configResponse] = await Promise.all([
         fetch('questions.json'),
-        fetch('programs.json')
+        fetch('programs.json'),
+        fetch('config.json')
       ]);
 
-      if (!questionsResponse.ok || !programsResponse.ok) {
+      if (!questionsResponse.ok || !programsResponse.ok || !configResponse.ok) {
         throw new Error('Failed to fetch data');
       }
 
       this.questionsData = await questionsResponse.json();
       this.programsData = await programsResponse.json();
+      this.configData = await configResponse.json();
       this.progressWeights = this.questionsData.meta.progressWeights;
     } catch (error) {
       throw new Error('Data loading failed: ' + error.message);
@@ -207,16 +210,67 @@ class QuizApp {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `option ${uiType}`;
-    button.textContent = option.label;
     button.setAttribute('data-option-id', option.id);
     button.setAttribute('role', 'radio');
     button.setAttribute('aria-checked', 'false');
     button.setAttribute('tabindex', index === 0 ? '0' : '-1');
 
+    // Extract emoji/icon and text from label
+    const labelText = option.label;
+    const emojiMatch = labelText.match(/^([^\w\s]+)\s*(.+)$/);
+    
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'option-icon';
+    
+    const textSpan = document.createElement('span');
+    textSpan.className = 'option-text';
+    
+    if (emojiMatch) {
+      // Map emojis to Font Awesome icons
+      const emoji = emojiMatch[1].trim();
+      const fontAwesomeIcon = this.mapEmojiToFontAwesome(emoji);
+      iconSpan.innerHTML = fontAwesomeIcon;
+      textSpan.textContent = emojiMatch[2].trim();
+    } else {
+      // No emoji, use a default icon
+      iconSpan.innerHTML = '<i class="fas fa-star"></i>';
+      textSpan.textContent = labelText;
+    }
+    
+    button.appendChild(iconSpan);
+    button.appendChild(textSpan);
+
     button.addEventListener('click', () => this.selectOption(option.id, button));
     button.addEventListener('keydown', (e) => this.handleOptionKeydown(e, option.id, button));
 
     return button;
+  }
+
+  mapEmojiToFontAwesome(emoji) {
+    const emojiMap = {
+      '🌱': '<i class="fas fa-seedling"></i>',
+      '📚': '<i class="fas fa-book"></i>',
+      '🎒': '<i class="fas fa-shopping-bag"></i>',
+      '🎤': '<i class="fas fa-microphone"></i>',
+      '🔀': '<i class="fas fa-exchange-alt"></i>',
+      '🎯': '<i class="fas fa-bullseye"></i>',
+      '💪': '<i class="fas fa-dumbbell"></i>',
+      '🙅‍♀️': '<i class="fas fa-times-circle"></i>',
+      '💖': '<i class="fas fa-heart"></i>',
+      '🤷': '<i class="fas fa-question-circle"></i>',
+      '🎭': '<i class="fas fa-theater-masks"></i>',
+      '💼': '<i class="fas fa-briefcase"></i>',
+      '🎶': '<i class="fas fa-music"></i>',
+      '🔬': '<i class="fas fa-microscope"></i>',
+      '🎨': '<i class="fas fa-palette"></i>',
+      '🏃': '<i class="fas fa-running"></i>',
+      '📖': '<i class="fas fa-book-open"></i>',
+      '🎓': '<i class="fas fa-graduation-cap"></i>',
+      '🏫': '<i class="fas fa-school"></i>',
+      '👨‍👩‍👧‍👦': '<i class="fas fa-users"></i>'
+    };
+    
+    return emojiMap[emoji] || '<i class="fas fa-star"></i>';
   }
 
   handleOptionKeydown(e, optionId, button) {
@@ -266,14 +320,19 @@ class QuizApp {
     const currentQuestion = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
     const nextId = currentQuestion.next[optionId];
     
-    // Show feedback message only if there's a next question, not for final results
+    // Show feedback message only if enabled and there's a next question
     setTimeout(() => {
       if (nextId.startsWith('out_')) {
         // Skip feedback for final results, proceed directly
         this.handleNext();
       } else {
-        // Show feedback for intermediate questions
-        this.showFeedback(this.currentQuestionId, optionId);
+        // Check if feedback is enabled for this question
+        if (this.shouldShowFeedback(this.currentQuestionId)) {
+          this.showFeedback(this.currentQuestionId, optionId);
+        } else {
+          // Skip feedback and proceed directly
+          this.handleNext();
+        }
       }
     }, 300);
   }
@@ -381,10 +440,42 @@ class QuizApp {
     resultBlurb.textContent = `${outcome.blurb} This could be your ideal pathway to a rewarding teaching career!`;
     programTitle.textContent = program.title;
     programCampus.textContent = program.campus;
-    programNotes.textContent = program.notes;
+    
+    // Only show notes if they exist and are not empty
+    if (program.notes && program.notes.trim() !== '') {
+      programNotes.textContent = program.notes;
+      programNotes.style.display = 'block';
+    } else {
+      programNotes.style.display = 'none';
+    }
     
     exploreCourseBtn.href = program.url;
     exploreCourseBtn.setAttribute('aria-label', `Explore ${program.title}`);
+    
+    // Load custom content for this outcome
+    this.loadCustomContent(outcome.id);
+  }
+
+  async loadCustomContent(outcomeId) {
+    const customContentElement = document.getElementById('customContent');
+    
+    try {
+      const response = await fetch(`templates/${outcomeId}.html`);
+      
+      if (response.ok) {
+        const htmlContent = await response.text();
+        customContentElement.innerHTML = htmlContent;
+        customContentElement.classList.remove('hidden');
+      } else {
+        // Template file doesn't exist, hide the container
+        customContentElement.classList.add('hidden');
+        customContentElement.innerHTML = '';
+      }
+    } catch (error) {
+      // Network error or file doesn't exist, hide the container
+      customContentElement.classList.add('hidden');
+      customContentElement.innerHTML = '';
+    }
   }
 
   showError(message) {
@@ -401,107 +492,29 @@ class QuizApp {
   }
 
   getFeedbackMessage(questionId, optionId) {
-    const messages = {
-      'q_age_group': {
-        'early_primary': {
-          icon: '🌱',
-          title: `Wonderful choice, ${this.userName}!`,
-          message: 'Early childhood education is incredibly rewarding! 85% of early childhood graduates report high job satisfaction, working with children from birth to 12 years.'
-        },
-        'primary_only': {
-          icon: '📚',
-          title: `Great thinking, ${this.userName}!`,
-          message: '70% of students pursuing Bachelor of Teaching in Primary Education enrol as double degree students for broader career opportunities!'
-        },
-        'primary_secondary': {
-          icon: '🎒',
-          title: `Excellent pick, ${this.userName}!`,
-          message: 'Teaching across both primary and secondary levels opens up amazing career flexibility! You\'ll be qualified to teach students aged 5-18.'
-        },
-        'secondary_only': {
-          icon: '🎤',
-          title: `Smart choice, ${this.userName}!`,
-          message: 'Secondary teaching is in high demand! 90% of secondary education graduates find employment within 6 months of graduating.'
-        }
-      },
-      'q_primary_path': {
-        'primary_double': {
-          icon: '🔀',
-          title: `Brilliant decision, ${this.userName}!`,
-          message: 'Double degree students often find more diverse career opportunities! Same 4 years, double the expertise and career options.'
-        },
-        'primary_single': {
-          icon: '🎯',
-          title: `Perfect focus, ${this.userName}!`,
-          message: 'Focused primary education degrees provide deep specialisation! You\'ll be teaching across all key learning areas from Foundation to Year 6.'
-        }
-      },
-      'q_ps_hpe': {
-        'yes_hpe': {
-          icon: '💪',
-          title: `Fantastic choice, ${this.userName}!`,
-          message: 'Health & PE teachers are in huge demand! 95% of HPE graduates find employment, and you\'ll be promoting wellbeing across all year levels.'
-        },
-        'no_hpe': {
-          icon: '📖',
-          title: `Good thinking, ${this.userName}!`,
-          message: 'There are so many other rewarding teaching specialisations! Let\'s find the perfect match for your interests and strengths.'
-        }
-      },
-      'q_ps_inclusion': {
-        'incl_focus': {
-          icon: '💖',
-          title: `Amazing choice, ${this.userName}!`,
-          message: 'Inclusive education specialists are desperately needed! You\'ll be making a real difference supporting diverse learners and championing inclusion.'
-        },
-        'incl_not_focus': {
-          icon: '🎓',
-          title: `Great approach, ${this.userName}!`,
-          message: 'General primary and secondary education offers incredible variety! You\'ll teach across different year levels and can specialise later.'
-        }
-      },
-      'q_secondary_area': {
-        'sec_arts_lang_media': {
-          icon: '🎭',
-          title: `Creative choice, ${this.userName}!`,
-          message: 'Arts, languages and media teachers inspire creativity! You\'ll choose two teaching areas from languages, humanities, media, psychology and more.'
-        },
-        'sec_business_econ': {
-          icon: '💼',
-          title: `Smart thinking, ${this.userName}!`,
-          message: 'Business and economics teachers are highly valued! You\'ll be preparing students for real-world financial literacy and career success.'
-        },
-        'sec_music': {
-          icon: '🎶',
-          title: `Harmonious choice, ${this.userName}!`,
-          message: 'Music education combines passion with pedagogy! You\'ll be inspiring the next generation of musicians and music lovers.'
-        },
-        'sec_science_tech': {
-          icon: '🔬',
-          title: `Brilliant selection, ${this.userName}!`,
-          message: 'STEM teachers are in huge demand! Choose from maths, biology, chemistry, physics, psychology or digital technologies.'
-        },
-        'sec_visual_arts': {
-          icon: '🎨',
-          title: `Artistic vision, ${this.userName}!`,
-          message: 'Visual arts teachers nurture creativity! This double degree format gives you both artistic expertise and teaching skills.'
-        },
-        'sec_hpe': {
-          icon: '🏃',
-          title: `Active choice, ${this.userName}!`,
-          message: 'Secondary HPE specialists are essential! You can even add a third teaching area like business or maths for extra versatility.'
-        }
-      }
-    };
-
-    const questionMessages = messages[questionId];
-    if (questionMessages && questionMessages[optionId]) {
-      return questionMessages[optionId];
+    // Get the question data
+    const question = this.questionsData.questions.find(q => q.id === questionId);
+    if (!question || !question.feedback || !question.feedback.messages) {
+      return this.getDefaultFeedbackMessage();
     }
 
+    // Get the specific message for this option
+    const messageData = question.feedback.messages[optionId];
+    if (messageData) {
+      return {
+        icon: messageData.icon || '✨',
+        title: messageData.title?.replace('{name}', this.userName) || `Great choice, ${this.userName}!`,
+        message: messageData.message || 'You\'re on the right track!'
+      };
+    }
+
+    return this.getDefaultFeedbackMessage();
+  }
+
+  getDefaultFeedbackMessage() {
     return {
       icon: '✨',
-      title: 'Great choice!',
+      title: `Great choice, ${this.userName}!`,
       message: 'You\'re on the right track to finding your perfect teaching pathway!'
     };
   }
@@ -537,6 +550,27 @@ class QuizApp {
     setTimeout(() => {
       feedbackOverlay.classList.add('hidden');
     }, 400);
+  }
+
+  shouldShowFeedback(questionId) {
+    // Check if feedback system is globally enabled
+    if (!this.configData || !this.configData.feedback.enabled) {
+      return false;
+    }
+
+    // Get the specific question data
+    const question = this.questionsData.questions.find(q => q.id === questionId);
+    if (!question) {
+      return this.configData.feedback.defaultEnabled;
+    }
+
+    // Check if question has feedback configuration
+    if (question.feedback && question.feedback.hasOwnProperty('enabled')) {
+      return question.feedback.enabled;
+    }
+
+    // Fall back to default setting
+    return this.configData.feedback.defaultEnabled;
   }
 
   proceedToNext() {

@@ -3,84 +3,84 @@
     "id": "prog_ecpe",
     "title": "Bachelor of Early Childhood & Primary Education",
     "campus": "Peninsula",
-    "url": "#",
-    "notes": "Play-based learning; birth–12."
+    "url": "https://www.monash.edu/study/courses/find-a-course",
+    "notes": ""
   },
   {
     "id": "prog_primary_double",
     "title": "Bachelor of Education (Primary) + Double Degree",
     "campus": "Clayton (some units Caulfield)",
-    "url": "#",
-    "notes": "Combine with Arts/Business/Fine Art/Music/Science."
+    "url": "https://www.monash.edu/study/courses/find-a-course",
+    "notes": ""
   },
   {
     "id": "prog_primary_single",
     "title": "Bachelor of Primary Education",
     "campus": "Peninsula",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Teach F–6 across all curriculum areas."
   },
   {
     "id": "prog_ps_hpe",
     "title": "Primary & Secondary Health and Physical Education",
     "campus": "Peninsula",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Wellbeing, movement, coaching."
   },
   {
     "id": "prog_ps_inclusive",
     "title": "Primary & Secondary Inclusive & Special Education",
     "campus": "Clayton",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Support diverse learners; inclusion focus."
   },
   {
     "id": "prog_ps_general",
     "title": "Primary & Secondary Education",
     "campus": "Clayton",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Teach across stages; specialise at secondary."
   },
   {
     "id": "prog_sec_arts",
     "title": "Secondary Ed (Hons) + Arts",
     "campus": "Clayton",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Pick two from languages, humanities, media, psychology, drama."
   },
   {
     "id": "prog_sec_business",
     "title": "Secondary Ed (Hons) + Business",
     "campus": "Clayton (Business at Caulfield)",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Accounting, business mgmt, economics, legal."
   },
   {
     "id": "prog_sec_music",
     "title": "Secondary Ed (Hons) + Music",
     "campus": "Clayton",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Music specialisation."
   },
   {
     "id": "prog_sec_science",
     "title": "Secondary Ed (Hons) + Science",
     "campus": "Clayton",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Maths, bio, chem, physics, psych, digital tech."
   },
   {
     "id": "prog_sec_fineart",
     "title": "Secondary Ed (Hons) + Fine Art",
     "campus": "Clayton (Fine Art at Caulfield)",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Visual arts teaching."
   },
   {
     "id": "prog_sec_hpe",
     "title": "Secondary Health & Physical Education",
     "campus": "Peninsula",
-    "url": "#",
+    "url": "https://www.monash.edu/study/courses/find-a-course",
     "notes": "Specialist HPE; can add a third area."
   }
 ]

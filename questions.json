@@ -16,11 +16,48 @@
       "type": "single",
       "ui": "cards",
       "text": "Which age group makes you light up the most?",
+      "feedback": {
+        "enabled": true,
+        "messages": {
+          "early_primary": {
+            "icon": "🌱",
+            "title": "Wonderful choice, {name}!",
+            "message": "Early childhood education is incredibly rewarding! 85% of early childhood graduates report high job satisfaction, working with children from birth to 12 years."
+          },
+          "primary_only": {
+            "icon": "📚",
+            "title": "Great thinking, {name}!",
+            "message": "70% of students pursuing Bachelor of Teaching in Primary Education enrol as double degree students for broader career opportunities!"
+          },
+          "primary_secondary": {
+            "icon": "🎒",
+            "title": "Excellent pick, {name}!",
+            "message": "Teaching across both primary and secondary levels opens up amazing career flexibility! You'll be qualified to teach students aged 5-18."
+          },
+          "secondary_only": {
+            "icon": "🎤",
+            "title": "Smart choice, {name}!",
+            "message": "Secondary teaching is in high demand! 90% of secondary education graduates find employment within 6 months of graduating."
+          }
+        }
+      },
       "options": [
-        { "id": "early_primary", "label": "🌱 Little ones (0–12)" },
-        { "id": "primary_only", "label": "📚 Primary kids (5–12)" },
-        { "id": "primary_secondary", "label": "🎒 Kids & teens (5–18)" },
-        { "id": "secondary_only", "label": "🎤 Teens (12–18)" }
+        {
+          "id": "early_primary",
+          "label": "🌱 Little ones (0–12)"
+        },
+        {
+          "id": "primary_only",
+          "label": "📚 Primary kids (5–12)"
+        },
+        {
+          "id": "primary_secondary",
+          "label": "🎒 Kids & teens (5–18)"
+        },
+        {
+          "id": "secondary_only",
+          "label": "🎤 Teens (12–18)"
+        }
       ],
       "next": {
         "early_primary": "out_early_primary",
@@ -35,12 +72,30 @@
       "ui": "cards",
       "text": "Do you want to keep it simple, or mix it up?",
       "subtitle": "Double degrees take 4 years too — same time, extra options.",
+      "feedback": {
+        "enabled": true,
+        "messages": {
+          "primary_double": {
+            "icon": "🔀",
+            "title": "Brilliant decision, {name}!",
+            "message": "Double degree students often find more diverse career opportunities! Same 4 years, double the expertise and career options."
+          },
+          "primary_single": {
+            "icon": "🎯",
+            "title": "Perfect focus, {name}!",
+            "message": "Focused primary education degrees provide deep specialisation! You'll be teaching across all key learning areas from Foundation to Year 6."
+          }
+        }
+      },
       "options": [
         {
           "id": "primary_double",
           "label": "🔀 Double degree with Arts/Business/Fine Art/Music/Science"
         },
-        { "id": "primary_single", "label": "🎯 Straight up Primary Education" }
+        {
+          "id": "primary_single",
+          "label": "🎯 Straight up Primary Education"
+        }
       ],
       "next": {
         "primary_double": "out_primary_double",
@@ -52,9 +107,18 @@
       "type": "single",
       "ui": "chips",
       "text": "Are you into Health & PE?",
+      "feedback": {
+        "enabled": false
+      },
       "options": [
-        { "id": "yes_hpe", "label": "💪 Yep, Health & PE is my jam" },
-        { "id": "no_hpe", "label": "🙅‍♀️ Not really my thing" }
+        {
+          "id": "yes_hpe",
+          "label": "💪 Yep, Health & PE is my jam"
+        },
+        {
+          "id": "no_hpe",
+          "label": "🙅‍♀️ Not really my thing"
+        }
       ],
       "next": {
         "yes_hpe": "out_ps_hpe",
@@ -66,12 +130,30 @@
       "type": "single",
       "ui": "chips",
       "text": "How important is inclusion to you?",
+      "feedback": {
+        "enabled": true,
+        "messages": {
+          "incl_focus": {
+            "icon": "💖",
+            "title": "Amazing choice, {name}!",
+            "message": "Inclusive education specialists are desperately needed! You'll be making a real difference supporting diverse learners and championing inclusion."
+          },
+          "incl_not_focus": {
+            "icon": "🎓",
+            "title": "Great approach, {name}!",
+            "message": "General primary and secondary education offers incredible variety! You'll teach across different year levels and can specialise later."
+          }
+        }
+      },
       "options": [
         {
           "id": "incl_focus",
           "label": "💖 Super important — make it my focus"
         },
-        { "id": "incl_not_focus", "label": "🤷 Not really my thing" }
+        {
+          "id": "incl_not_focus",
+          "label": "🤷 Not really my thing"
+        }
       ],
       "next": {
         "incl_focus": "out_ps_inclusive",
@@ -84,12 +166,30 @@
       "ui": "cards-grid",
       "text": "What’s your dream teaching area (secondary)?",
       "options": [
-        { "id": "sec_arts_lang_media", "label": "🎭 Arts, languages & media" },
-        { "id": "sec_business_econ", "label": "💼 Business & economics" },
-        { "id": "sec_music", "label": "🎶 Music" },
-        { "id": "sec_science_tech", "label": "🔬 Science & digital tech" },
-        { "id": "sec_visual_arts", "label": "🎨 Visual arts" },
-        { "id": "sec_hpe", "label": "🏃 Health & PE" }
+        {
+          "id": "sec_arts_lang_media",
+          "label": "🎭 Arts, languages & media"
+        },
+        {
+          "id": "sec_business_econ",
+          "label": "💼 Business & economics"
+        },
+        {
+          "id": "sec_music",
+          "label": "🎶 Music"
+        },
+        {
+          "id": "sec_science_tech",
+          "label": "🔬 Science & digital tech"
+        },
+        {
+          "id": "sec_visual_arts",
+          "label": "🎨 Visual arts"
+        },
+        {
+          "id": "sec_hpe",
+          "label": "🏃 Health & PE"
+        }
       ],
       "next": {
         "sec_arts_lang_media": "out_sec_arts_lang_media",
@@ -98,6 +198,41 @@
         "sec_science_tech": "out_sec_science_tech",
         "sec_visual_arts": "out_sec_visual_arts",
         "sec_hpe": "out_sec_hpe"
+      },
+      "feedback": {
+        "enabled": true,
+        "messages": {
+          "sec_arts_lang_media": {
+            "icon": "🎭",
+            "title": "Creative choice, {name}!",
+            "message": "Arts, languages and media teachers inspire creativity! You'll choose two teaching areas from languages, humanities, media, psychology and more."
+          },
+          "sec_business_econ": {
+            "icon": "💼",
+            "title": "Smart thinking, {name}!",
+            "message": "Business and economics teachers are highly valued! You'll be preparing students for real-world financial literacy and career success."
+          },
+          "sec_music": {
+            "icon": "🎶",
+            "title": "Harmonious choice, {name}!",
+            "message": "Music education combines passion with pedagogy! You'll be inspiring the next generation of musicians and music lovers."
+          },
+          "sec_science_tech": {
+            "icon": "🔬",
+            "title": "Brilliant selection, {name}!",
+            "message": "STEM teachers are in huge demand! Choose from maths, biology, chemistry, physics, psychology or digital technologies."
+          },
+          "sec_visual_arts": {
+            "icon": "🎨",
+            "title": "Artistic vision, {name}!",
+            "message": "Visual arts teachers nurture creativity! This double degree format gives you both artistic expertise and teaching skills."
+          },
+          "sec_hpe": {
+            "icon": "🏃",
+            "title": "Active choice, {name}!",
+            "message": "Secondary HPE specialists are essential! You can even add a third teaching area like business or maths for extra versatility."
+          }
+        }
       }
     }
   ],
@@ -172,7 +307,7 @@
       "id": "out_sec_hpe",
       "title": "Secondary Health & Physical Education",
       "programId": "prog_sec_hpe",
-      "blurb": "Become a specialist HPE teacher and add a third area such as business or maths."
+      "blurb": "A secondary school teacher with Health and Physical Education as your two specialist teaching areas."
     }
   ]
 }

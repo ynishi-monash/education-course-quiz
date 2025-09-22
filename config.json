@@ -1,0 +1,15 @@
+{
+  "feedback": {
+    "enabled": true,
+    "defaultEnabled": true
+  },
+  "ui": {
+    "enableAnimations": true,
+    "enableSounds": false,
+    "theme": "default"
+  },
+  "analytics": {
+    "trackAnswers": false,
+    "trackTiming": false
+  }
+}

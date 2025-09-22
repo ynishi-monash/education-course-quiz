@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find your course crush</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app">
+        <div class="top-header">
+            <div class="brand-text">EDUCATION QUIZ</div>
+        </div>
+        
         <header class="header">
             <h1 class="title">Find your course crush</h1>
             <div class="progress-container" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100">
@@ -36,7 +41,8 @@
                                 >
                             </div>
                             <button type="submit" class="btn btn-primary btn-large" id="startQuizBtn">
-                                Let's get started! →
+                                <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                                <span class="btn-text">Let's get started!</span>
                             </button>
                         </form>
                     </div>
@@ -49,19 +55,24 @@
                         
                         <div class="year-options">
                             <button type="button" class="option cards year-option" data-year="year10">
-                                📖 Year 10
+                                <span class="option-icon"><i class="fas fa-book-open"></i></span>
+                                <span class="option-text">Year 10</span>
                             </button>
                             <button type="button" class="option cards year-option" data-year="year11">
-                                📚 Year 11
+                                <span class="option-icon"><i class="fas fa-book"></i></span>
+                                <span class="option-text">Year 11</span>
                             </button>
                             <button type="button" class="option cards year-option" data-year="year12">
-                                🎓 Year 12
+                                <span class="option-icon"><i class="fas fa-graduation-cap"></i></span>
+                                <span class="option-text">Year 12</span>
                             </button>
                             <button type="button" class="option cards year-option" data-year="neither">
-                                🏫 Neither (finished school/other)
+                                <span class="option-icon"><i class="fas fa-school"></i></span>
+                                <span class="option-text">Neither (finished school/other)</span>
                             </button>
                             <button type="button" class="option cards year-option" data-year="parent">
-                                👨‍👩‍👧‍👦 I am a parent/guardian
+                                <span class="option-icon"><i class="fas fa-users"></i></span>
+                                <span class="option-text">I am a parent/guardian</span>
                             </button>
                         </div>
                     </div>
@@ -75,7 +86,8 @@
                             <p><strong>When answering the questions, please put yourself in your child's shoes</strong> — think about their interests, strengths, and what might excite them about teaching.</p>
                         </div>
                         <button type="button" class="btn btn-primary btn-large" id="parentContinueBtn">
-                            Got it, let's continue! →
+                            <span class="btn-icon"><i class="fas fa-check"></i></span>
+                            <span class="btn-text">Got it, let's continue!</span>
                         </button>
                     </div>
                 </div>
@@ -87,7 +99,8 @@
                     
                     <div class="quiz-actions">
                         <button type="button" class="btn btn-secondary" id="backBtn" aria-label="Go back to previous question">
-                            ← Back
+                            <span class="btn-icon"><i class="fas fa-arrow-left"></i></span>
+                            <span class="btn-text">Back</span>
                         </button>
                     </div>
                 </div>
@@ -103,14 +116,19 @@
                                 <div class="program-campus" id="programCampus"></div>
                                 <div class="program-notes" id="programNotes"></div>
                             </div>
+                            <div class="custom-content hidden" id="customContent"></div>
+                            <div class="program-actions">
+                                <a href="#" class="btn btn-primary btn-large" id="exploreCourseBtn" aria-label="Explore this course">
+                                    <span class="btn-icon"><i class="fas fa-external-link-alt"></i></span>
+                                    <span class="btn-text">Explore course</span>
+                                </a>
+                            </div>
                         </div>
                         
                         <div class="result-actions">
-                            <a href="#" class="btn btn-primary btn-large" id="exploreCourseBtn" aria-label="Explore this course">
-                                Explore course
-                            </a>
                             <button type="button" class="btn btn-secondary" id="startOverBtn" aria-label="Start the quiz over">
-                                Start over
+                                <span class="btn-icon"><i class="fas fa-redo"></i></span>
+                                <span class="btn-text">Start over</span>
                             </button>
                         </div>
                     </div>
@@ -124,7 +142,8 @@
                 <h2 class="feedback-title" id="feedbackTitle">Good choice!</h2>
                 <p class="feedback-message" id="feedbackMessage">Loading next question...</p>
                 <button type="button" class="btn btn-primary btn-large feedback-continue" id="feedbackContinueBtn" aria-label="Continue to next question">
-                    Continue →
+                    <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+                    <span class="btn-text">Continue</span>
                 </button>
             </div>
         </div>
