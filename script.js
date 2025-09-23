@@ -71,8 +71,9 @@ class QuizApp {
 
     // Year selection event listeners
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('year-option')) {
-        this.handleYearSelection(e.target.dataset.year);
+      const yearOption = e.target.closest('.year-option');
+      if (yearOption) {
+        this.handleYearSelection(yearOption.dataset.year);
       }
     });
     

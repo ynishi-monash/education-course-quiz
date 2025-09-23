@@ -138,7 +138,7 @@ body {
 }
 
 .question-text {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 3rem;
   color: var(--text-primary);
@@ -209,7 +209,7 @@ body {
 
 .option {
   background: var(--white);
-  border: 2px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 1.5rem 1rem;
   cursor: pointer;
@@ -224,13 +224,18 @@ body {
   min-height: 80px;
   position: relative;
   overflow: hidden;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
 }
 
 .option-icon {
-  font-size: 2rem;
+  font-size: 3.4rem;
   line-height: 1;
+  color: #33454f;
+  transition: color 0.2s ease;
+}
+
+.option:hover .option-icon {
   color: var(--monash-blue);
 }
 
@@ -242,12 +247,17 @@ body {
 }
 
 .option:hover {
-  border-color: var(--golden-yellow);
-  box-shadow: var(--shadow-gold);
+  background: rgba(1, 109, 174, 0.08);
+  border-color: var(--monash-blue);
+  box-shadow: 0 4px 20px rgba(1, 109, 174, 0.15);
   transform: translateY(-2px);
 }
 
 .option:focus {
+  outline: none;
+}
+
+.option:focus-visible {
   outline: 3px solid var(--golden-yellow);
   outline-offset: 2px;
 }
@@ -793,30 +803,6 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.year-option:nth-child(1):hover {
-  background: var(--bg-gold);
-  border-color: var(--golden-yellow);
-}
-
-.year-option:nth-child(2):hover {
-  background: var(--bg-yellow);
-  border-color: var(--sunny-yellow);
-}
-
-.year-option:nth-child(3):hover {
-  background: var(--bg-mint);
-  border-color: var(--electric-green);
-}
-
-.year-option:nth-child(4):hover {
-  background: var(--bg-purple);
-  border-color: var(--violet);
-}
-
-.year-option:nth-child(5):hover {
-  background: var(--bg-orange);
-  border-color: var(--orange-pop);
-}
 
 /* Parent Message Styles */
 .parent-message-content {
