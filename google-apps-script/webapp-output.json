@@ -1,0 +1,686 @@
+{
+  "meta": {
+    "schema": "v1",
+    "title": "Find your course crush",
+    "maxSteps": 4
+  },
+  "questions": [
+    {
+      "id": "q1_edu_or_ldt",
+      "type": "single",
+      "ui": "cards",
+      "text": "In your future career, what do you see yourself doing each day?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "Managing the classroom"
+        },
+        {
+          "id": "opt2",
+          "label": "Creating cool learning tools and apps that make learning fun"
+        },
+        {
+          "id": "opt3",
+          "label": "Supporting students one-on-one"
+        },
+        {
+          "id": "opt4",
+          "label": "Working behind the scenes creating video resources for learning"
+        }
+      ],
+      "next": {
+        "opt1": "q2_age_group",
+        "opt2": "out_bldt",
+        "opt3": "q2_age_group",
+        "opt4": "out_bldt"
+      }
+    },
+    {
+      "id": "q2_age_group",
+      "type": "single",
+      "ui": "cards",
+      "text": "Which age group makes you light up the most?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "0-12: I love the energy of little kids. I’d love to teach kindergarten or primary school.",
+          "feedback": {
+            "icon": "🌱"
+          }
+        },
+        {
+          "id": "opt2",
+          "label": "5-12: I like the idea of teaching kids, but just primary school.",
+          "feedback": {
+            "icon": "📚",
+            "title": "Great choice, {name}!",
+            "message": "Primary Education can be such a fulfilling career."
+          }
+        },
+        {
+          "id": "opt3",
+          "label": "5-18: I’m flexible! I’d enjoy teaching both kids and teens.",
+          "feedback": {
+            "icon": "🎒",
+            "title": "Excellent pick, {name}!",
+            "message": "Got other interests? Combine this course with another degree like Science, Arts, Business, Music or Fine Art. Double degrees take 4 years too - same time, double the options!"
+          }
+        },
+        {
+          "id": "opt4",
+          "label": "12-18: I connect best with teens. I can’t see myself working with little kids.",
+          "feedback": {
+            "icon": "🎤",
+            "title": "Smart choice, {name}!",
+            "message": "Secondary teaching is in high demand! 90% of secondary education graduates find employment within 6 months of graduating."
+          }
+        }
+      ],
+      "next": {
+        "opt1": "out_early_primary",
+        "opt2": "q3_primary_path",
+        "opt3": "q7_primary_secondary_inclusion",
+        "opt4": "q5_secondary_hpe"
+      }
+    },
+    {
+      "id": "q3_primary_path",
+      "type": "single",
+      "ui": "cards",
+      "text": "Do you want to mix it up with a double degree, or keep it simple?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "A double degree sounds cool. Tell me more!",
+          "feedback": {
+            "icon": "🔀",
+            "title": "Great choice! ",
+            "message": "Double degrees give you way more opportunities. Same 4 years - bigger toolkit. We’ve got lots of options for double degrees - let’s narrow it down. "
+          }
+        },
+        {
+          "id": "opt2",
+          "label": "I’ll keep it simple. Straight up primary education.",
+          "feedback": {
+            "icon": "🎯"
+          }
+        }
+      ],
+      "next": {
+        "opt1": "q4_primary_double_area",
+        "opt2": "out_primary_single"
+      }
+    },
+    {
+      "id": "q4_primary_double_area",
+      "type": "single",
+      "ui": "cards",
+      "text": "Which of these statements best describes you?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "I’m a creative person. I love reading, writing, creating videos or performances. I'm curious about people and culture."
+        },
+        {
+          "id": "opt2",
+          "label": "I’m always asking questions about how the world works. I love science. Solving maths problems, doing experiments, and learning about the environment. "
+        },
+        {
+          "id": "opt3",
+          "label": "I like talking business – numbers, strategy, management – but also working with people."
+        },
+        {
+          "id": "opt4",
+          "label": "I live for making art. I want to paint, sculpt, print, shoot photos, or mess with video or sound."
+        },
+        {
+          "id": "opt5",
+          "label": "I love music. Listening to it, creating it, and learning about it."
+        }
+      ],
+      "next": {
+        "opt1": "out_primary_double_arts",
+        "opt2": "out_primary_double_science",
+        "opt3": "out_primary_double_business",
+        "opt4": "out_primary_double_fine_art",
+        "opt5": "out_primary_double_music"
+      }
+    },
+    {
+      "id": "q5_secondary_hpe",
+      "type": "single",
+      "ui": "cards",
+      "text": "What do you think about teaching Secondary Health and Physical Education?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "Sounds good! I’m passionate about health and wellbeing, I love sport and I’m curious about exercise science."
+        },
+        {
+          "id": "opt2",
+          "label": "I’m not a fan of Health and PE. What else can I do?",
+          "feedback": {
+            "title": "No worries.",
+            "message": "Since you’re not interested in Health and PE, a Secondary Education double degree might suit you better. Secondary Education can only be studied as a double degree, but don’t worry - it doesn’t take any longer to complete"
+          }
+        }
+      ],
+      "next": {
+        "opt1": "out_secondary_hpe",
+        "opt2": "q6_secondary_double_area"
+      }
+    },
+    {
+      "id": "q6_secondary_double_area",
+      "type": "single",
+      "ui": "cards",
+      "text": "Let’s find out more about your interests. Which of these statements best describes you?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "I’m a creative person. I love reading, writing, creating videos or performances. I'm curious about people and culture.",
+          "feedback": {
+            "icon": "🎭"
+          }
+        },
+        {
+          "id": "opt2",
+          "label": "I’m always asking questions about how the world works. I love science. Solving maths problems, doing experiments, and learning about the environment.",
+          "feedback": {
+            "icon": "🎶"
+          }
+        },
+        {
+          "id": "opt3",
+          "label": "I like talking business — numbers, strategy, management — but also love working with people.",
+          "feedback": {
+            "icon": "💼"
+          }
+        },
+        {
+          "id": "opt4",
+          "label": "I live for making art. I want to paint, sculpt, print, shoot photos, or mess with video or sound.",
+          "feedback": {
+            "icon": "🔬"
+          }
+        },
+        {
+          "id": "opt5",
+          "label": "I love music. Listening to it, creating it, and learning about it.",
+          "feedback": {
+            "icon": "🎨"
+          }
+        }
+      ],
+      "next": {
+        "opt1": "out_secondary_double_arts",
+        "opt2": "out_secondary_double_science",
+        "opt3": "out_secondary_double_business",
+        "opt4": "out_secondary_double_visual_arts",
+        "opt5": "out_secondary_double_music"
+      }
+    },
+    {
+      "id": "q7_primary_secondary_inclusion",
+      "type": "single",
+      "ui": "cards",
+      "text": "Are you passionate about making learning inclusive to students with diverse needs and abilities?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "Yes. I want to learn more about inclusion and make it my career focus",
+          "feedback": {
+            "icon": "💖"
+          }
+        },
+        {
+          "id": "opt2",
+          "label": "No, I’m not really interested in that.",
+          "feedback": {
+            "icon": "🎓",
+            "title": "No worries!",
+            "message": "We’ve got a few more options for teaching primary and secondary students. Let’s narrow it down."
+          }
+        }
+      ],
+      "next": {
+        "opt1": "out_primary_secondary_inclusive",
+        "opt2": "q8_primary_secondary_hpe"
+      }
+    },
+    {
+      "id": "q8_primary_secondary_hpe",
+      "type": "single",
+      "ui": "cards",
+      "text": "Are you interested in teaching Health and Physical Education?",
+      "options": [
+        {
+          "id": "opt1",
+          "label": "Sounds good! I’m passionate about health and wellbeing, and I love sport. I’d love to make a career out of teaching it."
+        },
+        {
+          "id": "opt2",
+          "label": "No. Health and PE doesn’t interest me."
+        }
+      ],
+      "next": {
+        "opt1": "out_primary_secondary_hpe",
+        "opt2": "out_primary_secondary_general"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "out_early_primary",
+      "title": "It's a match!",
+      "blurb": "It's a match! Play-based learning, creativity and helping kids aged 0-12 grow in every way. Our Bachelor of Early Childhood and Primary Education could be your next step to an exciting career!",
+      "description": "#### What you'll learn:\n- **Early Childhood:** How to help children grow creatively, physically, socially, and intellectually through play-based learning  \n- **Primary:** How to teach English, maths, science, humanities, arts, digital technologies, and Health and PE  \n\n#### Career opportunities:\nTeach children from birth to age 12 in childcare, kindergartens, preschools, and primary schools.",
+      "course": {
+        "id": "out_early_primary",
+        "title": "Bachelor of Early Childhood and Primary Education",
+        "campus": "Peninsula Campus",
+        "url": "https://www.monash.edu/study/courses/find-a-course"
+      }
+    },
+    {
+      "id": "out_primary_single",
+      "title": "Nice!",
+      "blurb": "___% of students choose to keep it simple with a Bachelor of Primary Education as a single degree.",
+      "description": "#### What you’ll learn:\n- How primary school children learn and how to teach them effectively and creatively.\n- All key curriculum areas – English, maths, science, humanities, arts, digital technologies, and Health and PE.\n\n#### Career opportunities:\n- Teach children aged 5–12 in primary schools.",
+      "course": {
+        "id": "out_primary_single",
+        "title": "Bachelor of Primary Education",
+        "campus": "Peninsula Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_secondary_hpe",
+      "title": "Great!",
+      "blurb": "So you’re open to teaching both primary and secondary students, and you’ve got an interest in Health and PE. This course will suit your interests, and prepare you for a range of career options.",
+      "description": "#### What you’ll learn:\n- The science and psychology behind health and physical education.\n- How to promote wellbeing in students and communities.\n- Coaching and practical skills in sport, exercise science, and movement.\n- Teach all main primary subjects, specialising in Health and PE.\n- Adolescent learning, secondary curriculum planning, and assessment.\n\n#### Career opportunities:\n- Primary school teacher\n- Specialist primary Health and PE teacher\n- Secondary Health and PE teacher\n- Coach, program leader or consultant in sport, health or recreational organisations.\n- Create and run programs that help young people stay active and healthy.",
+      "course": {
+        "id": "out_primary_secondary_hpe",
+        "title": "Primary and Secondary Health and Physical Education",
+        "campus": "Peninsula Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_secondary_inclusive",
+      "title": "Great choice!",
+      "blurb": "If you’re passionate about making learning inclusive, then the Bachelor of Primary and Secondary Inclusive and Special Education would be perfect for you.",
+      "description": "#### What you’ll learn:\n- Specialist skills to support diverse learning needs, including significant disabilities.\n- Inclusive teaching strategies for all learners.\n- Teach all main primary subjects with an approach to support student diversity.\n- Adolescent learning and secondary specialisations (arts, humanities, sciences, maths, business, or digital technologies).\n\n#### Career opportunities:\n- Teach children and teenagers aged 5–18 in both regular and specialist primary and secondary schools.",
+      "course": {
+        "id": "out_primary_secondary_inclusive",
+        "title": "Bachelor of Education (Honours) in Primary and Secondary Inclusive and Special Education",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_secondary_general",
+      "title": "No worries!",
+      "blurb": "___% of people at Monash Education study a Bachelor of Primary and Secondary Education. If you want the chance to become a generalist Primary school teacher and a Secondary teacher in one specialist area, then this course would be perfect for you too!",
+      "description": "#### How to teach and support students at different stages of development.\n- Learn to teach all main primary subjects – English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Learn to teach one secondary subject like arts, humanities, sciences, maths, business, or digital technologies.\n#### Career opportunities:\n- Primary school teacher.\n- Secondary school teacher in one discipline area.",
+      "course": {
+        "id": "out_primary_secondary_general",
+        "title": "Primary & Secondary Education",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_double_arts",
+      "title": "It’s a match! ",
+      "blurb": "You can combine your passion for Arts and creativity with your interest in teaching Secondary students in a double degree! It’s the best of both worlds!",
+      "description": "#### What you'll learn:\n- Teach high school students subjects like English, drama, social sciences, media and many more. \n- Learn how teens learn, manage a classroom, and make your lessons engaging.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\n- Secondary school teacher in subjects like English, drama, social sciences, media and many more. \n- Develop educational content and curriculum for schools.\n- Manage school or community programs focused on arts, culture, or humanities.\n- Influence educational policy in humanities and arts teaching.",
+      "course": {
+        "id": "out_secondary_double_arts",
+        "title": "Bachelor of Secondary Education and Bachelor of Arts",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_double_business",
+      "title": "It’s a match!",
+      "blurb": "You can combine your love for science with your interest in teaching Secondary students with a double degree! It’s the best of both worlds!",
+      "description": "#### What you'll learn:\n- Teach high school students.\n- Learn how teens learn, manage a classroom, and keep students engaged.\n- Learn how to design curriculum, plan lessons, and evaluate teaching practices.\n- Get hands-on with real-world business projects and 80 days of teaching placements.\n- Build skills in planning, leadership, and problem-solving for both classrooms and the business world.\n\n\n#### Career opportunities:\n- Secondary school teacher - Business, accounting, economics, legal studies.\n- Get involved in the business side of schools. Think educational management and leadership, marketing or school administration.\n- Work as a business consultant or advisor for organisations.\n- Launch your own startup or business venture.",
+      "course": {
+        "id": "out_secondary_double_business",
+        "title": "Bachelor of Secondary Education (Honours) and Bachelor of Business",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_double_music",
+      "title": "It’s a match! ",
+      "blurb": "You can combine your love for music with your interest in teaching Secondary students with a double degree! It’s the best of both worlds!",
+      "description": "#### What you’ll learn:\n- Teach high school students.\n- Get creative with your chosen specialisation - performance, composition, music technology or popular music.\n- Learn how teens learn, how to manage a classroom, and keep students engaged.\n- Learn how to design lesson plans, curriculum and evaluate teaching practices.\n- Gain real experience through music projects and 80 days of teaching placements.\n\n#### Career Opportunities\n- Secondary school music teacher.\n- Musician - perform, compose, or produce your own music.\n- Teach music in schools, private lessons, or community programs.\n- Manage music programs and events in schools or organisations.",
+      "course": {
+        "id": "out_secondary_double_music",
+        "title": "Bachelor of Secondary Education (Honours) and Bachelor of Music",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_double_science",
+      "title": "It’s a match! ",
+      "blurb": "Choose from maths, biology, chemistry, physics, psychology or digital technologies.",
+      "description": "#### What you'll learn:\n- Teach high school students.\n- Explore biology, chemistry, physics, or environmental science with hands-on experiments.\n- Learn how teens learn, how to manage a classroom, and keep students engaged.\n- Get real classroom experience with 80 days of teaching placements.\n\n#### Career opportunities:\n- Secondary school Science teacher\n- Get into research or STEM industries, contributing to new scientific discoveries.\n- Take on educational leadership or program roles, shaping how science is taught.",
+      "course": {
+        "id": "out_secondary_double_science",
+        "title": "Bachelor of Secondary Education(Honours) and Bachelor of Science",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_double_fine_arts",
+      "title": "It’s a match! ",
+      "blurb": "You can combine your love for art with your interest in teaching Secondary students with a double degree! It’s the best of both worlds!",
+      "description": "#### What you’ll learn\n- Teach high school students \n- Experiment with painting, sculpture, photography, digital media, jewellery, installation, sound, video.\n- Learn how teens learn, how to manage a classroom, and keep students engaged.\n- Hands-on experience with studio work, and 80 days of teaching placement. \n\n#### Career Opportunities\n- Secondary school Art teacher\n- Work as a contemporary artist, curator, or in galleries.\n- Jump into creative industries using your art skills –design, media, exhibitions, or freelance.\n- Lead projects that combine teaching and creative practice.",
+      "course": {
+        "id": "out_secondary_double_fine_arts",
+        "title": "Bachelor of Secondary Education (Honours) and Bachelor of Fine Art",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_secondary_hpe",
+      "title": "Great! ",
+      "blurb": "So you want to teach Secondary School aged students and you’re interested in Health and PE. This course will give you just that",
+      "description": "#### What you’ll learn:\n- How to teach high school students (12–18 yrs) in Health & PE (plus another subject you choose).\n- Ways to create fun, inclusive PE lessons that get teens moving and learning.\n- How to support young people’s health, wellbeing, and confidence.\n- Real classroom practice: 80+ days of teaching in schools.\n\n#### Career opportunities:\n- Teach Health (including health and human development) and PE in high schools.\n- Teach a third subject of your choosing (english, maths, arts, humanities, science, etc) in high schools.\n- Become a coach, program leader or consultant in sport, health or recreational organisations.\n- Create and run programs that help young people stay active and healthy.",
+      "course": {
+        "id": "out_secondary_hpe",
+        "title": "Bachelor of Education (Honours) in Secondary Health and Physical Education",
+        "campus": "Clayton Campus (Fine Art units offered Caulfield)",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_double_arts",
+      "title": "It's a match!",
+      "blurb": "Our double degree graduates go on to become leading teachers with exciting opportunities in other careers too.",
+      "description": "#### What you'll learn:\n- Complete **two degrees at the same time**.\n- Teach primary English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Dive into arts, languages, history, culture, media – pick your favourite major or minor.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\nTeach children aged 5–12 in primary schools, with additional qualifications in your second field.",
+      "course": {
+        "id": "out_primary_double_arts",
+        "title": "Bachelor of Primary Education and Bachelor of Arts",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_double_science",
+      "title": "It's a match!",
+      "blurb": "Our double degree graduates go on to become leading teachers with exciting opportunities in other careers too.",
+      "description": "#### What you’ll learn:\n- Complete **two degrees at the same time**.\n- Teach primary English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Dive into science areas like biology, chemistry, physics or environmental science.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\n- Teach across the primary school curriculum, specialising in science.\n- Work in science communication, museums, or publishing.\n- Work in education development, curriculum design, or create STEM learning resources.",
+      "course": {
+        "id": "out_primary_double_science",
+        "title": "Bachelor of Primary Education and Bachelor of Science",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_double_business",
+      "title": "It's a match!",
+      "blurb": "Our double degree graduates go on to become leading teachers with exciting opportunities in other careers too.",
+      "description": "#### What you’ll learn:\n- Complete **two degrees at the same time**.\n- Teach primary English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Dive into business fundamentals: accounting, economics, management, business law.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\n- Teach across the primary school curriculum.\n- Get involved in the business side of schools. Think management and leadership, marketing or school administration.\n- Work as a business consultant or advisor for organisations.\n- Launch your own startup or business venture.",
+      "course": {
+        "id": "out_primary_double_business",
+        "title": "Bachelor of Primary Education and Bachelor of Business",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_double_fine_art",
+      "title": "It's a match!",
+      "blurb": "It's a match! Our double degree graduates go on to become leading teachers with exciting opportunities in other careers too.",
+      "description": "#### What you’ll learn:\n- Complete **two degrees at the same time**.\n- Teach primary English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Dive into business fundamentals: accounting, economics, management, business law.\n- Study video art, film, installation practices and 3D print modelling.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\n- Teach across the primary school curriculum, specialising in art.\n- Work in education and arts policy and planning. \n- Manage galleries and museums.\n- Arts administration and consultancy.",
+      "course": {
+        "id": "out_primary_double_fine_art",
+        "title": "Bachelor of Primary Education and Bachelor of Fine Art",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_primary_double_music",
+      "title": "It's a match!",
+      "blurb": "Our double degree graduates go on to become leading teachers with exciting opportunities in other careers too.",
+      "description": "#### What you’ll learn:\n- Complete **two degrees at the same time**.\n- Teach primary English, maths, science, humanities, arts, digital technologies, and Health and PE.\n- Dive into music theory, performance, composition and culture.\n- Get real classroom experience with **80 days of teaching placements**.\n\n#### Career opportunities:\n- Teach across the primary school curriculum, specialising in music.\n- Teach music lessons or lead bands/ensembles in schools, community programs, or privately.\n- Compose, perform, or produce music – your creative side doesn’t need to take a backseat.",
+      "course": {
+        "id": "out_primary_double_music",
+        "title": "Bachelor of Primary Education and Bachelor of Music",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    },
+    {
+      "id": "out_bldt",
+      "title": "BLDT",
+      "blurb": "",
+      "description": "BLDT",
+      "course": {
+        "id": "out_bldt",
+        "title": "BLDT",
+        "campus": "Clayton Campus",
+        "url": ""
+      }
+    }
+  ],
+  "courses": [
+    {
+      "id": "out_early_primary",
+      "title": "Bachelor of Early Childhood and Primary Education",
+      "campus": "Peninsula Campus",
+      "url": "https://www.monash.edu/study/courses/find-a-course"
+    },
+    {
+      "id": "out_primary_single",
+      "title": "Bachelor of Primary Education",
+      "campus": "Peninsula Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_hpe",
+      "title": "Primary and Secondary Health and Physical Education",
+      "campus": "Peninsula Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_inclusive",
+      "title": "Bachelor of Education (Honours) in Primary and Secondary Inclusive and Special Education",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_general",
+      "title": "Primary & Secondary Education",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_arts",
+      "title": "Bachelor of Secondary Education and Bachelor of Arts",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_business",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Business",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_music",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Music",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_science",
+      "title": "Bachelor of Secondary Education(Honours) and Bachelor of Science",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_fine_arts",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Fine Art",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_hpe",
+      "title": "Bachelor of Education (Honours) in Secondary Health and Physical Education",
+      "campus": "Clayton Campus (Fine Art units offered Caulfield)",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_arts",
+      "title": "Bachelor of Primary Education and Bachelor of Arts",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_science",
+      "title": "Bachelor of Primary Education and Bachelor of Science",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_business",
+      "title": "Bachelor of Primary Education and Bachelor of Business",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_fine_art",
+      "title": "Bachelor of Primary Education and Bachelor of Fine Art",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_music",
+      "title": "Bachelor of Primary Education and Bachelor of Music",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_bldt",
+      "title": "BLDT",
+      "campus": "Clayton Campus",
+      "url": ""
+    }
+  ],
+  "programs": [
+    {
+      "id": "out_early_primary",
+      "title": "Bachelor of Early Childhood and Primary Education",
+      "campus": "Peninsula Campus",
+      "url": "https://www.monash.edu/study/courses/find-a-course"
+    },
+    {
+      "id": "out_primary_single",
+      "title": "Bachelor of Primary Education",
+      "campus": "Peninsula Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_hpe",
+      "title": "Primary and Secondary Health and Physical Education",
+      "campus": "Peninsula Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_inclusive",
+      "title": "Bachelor of Education (Honours) in Primary and Secondary Inclusive and Special Education",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_secondary_general",
+      "title": "Primary & Secondary Education",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_arts",
+      "title": "Bachelor of Secondary Education and Bachelor of Arts",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_business",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Business",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_music",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Music",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_science",
+      "title": "Bachelor of Secondary Education(Honours) and Bachelor of Science",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_double_fine_arts",
+      "title": "Bachelor of Secondary Education (Honours) and Bachelor of Fine Art",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_secondary_hpe",
+      "title": "Bachelor of Education (Honours) in Secondary Health and Physical Education",
+      "campus": "Clayton Campus (Fine Art units offered Caulfield)",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_arts",
+      "title": "Bachelor of Primary Education and Bachelor of Arts",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_science",
+      "title": "Bachelor of Primary Education and Bachelor of Science",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_business",
+      "title": "Bachelor of Primary Education and Bachelor of Business",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_fine_art",
+      "title": "Bachelor of Primary Education and Bachelor of Fine Art",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_primary_double_music",
+      "title": "Bachelor of Primary Education and Bachelor of Music",
+      "campus": "Clayton Campus",
+      "url": ""
+    },
+    {
+      "id": "out_bldt",
+      "title": "BLDT",
+      "campus": "Clayton Campus",
+      "url": ""
+    }
+  ]
+}

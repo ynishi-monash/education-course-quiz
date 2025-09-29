@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <h2 class="loading-title">Loading your quiz...</h2>
+            <p class="loading-message">Getting the latest questions from our database</p>
+        </div>
+    </div>
+
     <div class="app">
         <div class="top-header">
             <div class="brand-text">EDUCATION QUIZ</div>
@@ -93,9 +104,11 @@
                 </div>
 
                 <div class="question-card hidden" id="questionCard">
-                    <h2 class="question-text" id="questionText"></h2>
-                    <p class="question-subtitle" id="questionSubtitle"></p>
-                    <div class="options-container" id="optionsContainer"></div>
+                    <div class="question-content" id="questionContent">
+                        <h2 class="question-text" id="questionText"></h2>
+                        <p class="question-subtitle" id="questionSubtitle"></p>
+                        <div class="options-container" id="optionsContainer"></div>
+                    </div>
                     
                     <div class="quiz-actions">
                         <button type="button" class="btn btn-secondary" id="backBtn" aria-label="Go back to previous question">
@@ -110,14 +123,13 @@
                         <h2 class="result-title" id="resultTitle"></h2>
                         <p class="result-blurb" id="resultBlurb"></p>
                         
-                        <div class="program-details" id="programDetails">
-                            <h3 class="program-title" id="programTitle"></h3>
-                            <div class="program-info">
-                                <div class="program-campus" id="programCampus"></div>
-                                <div class="program-notes" id="programNotes"></div>
+                        <div class="course-details" id="courseDetails">
+                            <h3 class="course-title" id="courseTitle"></h3>
+                            <div class="course-info">
+                                <div class="course-campus" id="courseCampus"></div>
                             </div>
                             <div class="custom-content hidden" id="customContent"></div>
-                            <div class="program-actions">
+                            <div class="course-actions">
                                 <a href="#" class="btn btn-primary btn-large" id="exploreCourseBtn" aria-label="Explore this course">
                                     <span class="btn-icon"><i class="fas fa-external-link-alt"></i></span>
                                     <span class="btn-text">Explore course</span>

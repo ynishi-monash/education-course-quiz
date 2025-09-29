@@ -1,0 +1,6 @@
+id,type,ui,text,subtitle
+q_age_group,single,cards,"Which age group makes you light up the most?",
+q_primary_path,single,cards,"Do you want to keep it simple, or mix it up?","Double degrees take 4 years too — same time, extra options."
+q_ps_hpe,single,cards,"Are you into Health & PE?",
+q_ps_inclusion,single,cards,"How important is inclusion to you?",
+q_secondary_area,single,cards,"What's your dream teaching area (secondary)?",

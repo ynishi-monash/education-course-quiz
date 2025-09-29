@@ -10,37 +10,65 @@ class QuizApp {
     this.feedbackTimeout = null;
     this.userName = '';
     this.userYear = '';
-    
+
     this.init();
   }
 
   async init() {
     try {
+      // Show loading screen initially
+      this.showLoading();
+      
       await this.loadData();
       this.bindEvents();
+      
+      // Hide loading screen and show welcome
+      this.hideLoading();
       this.showWelcome();
     } catch (error) {
       console.error('Failed to initialize quiz:', error);
+      this.hideLoading();
       this.showError('Failed to load quiz data. Please refresh the page.');
     }
   }
 
   async loadData() {
+    // Your Apps Script web app URL (with optional sheet ID parameter)
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzPNuEzi1g1lavlGzI1Dwg4Hi0_Cazp2Nb5zl5PHG9E1mWyVd3GmU_6SoOzm8bthTL/exec?sheetId=19nX57wbI86cRdTOHcDs3fEeSJKMJjw9uyCh_3TCOp4E'; // Replace with your actual URL
+    // const APPS_SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE?sheetId=YOUR_SHEET_ID'; // With specific sheet
+
     try {
-      const [questionsResponse, programsResponse, configResponse] = await Promise.all([
-        fetch('questions.json'),
-        fetch('programs.json'),
+      console.log('Loading data from Google Sheets...');
+      const [questionsResponse, configResponse] = await Promise.all([
+        fetch(APPS_SCRIPT_URL),
         fetch('config.json')
       ]);
 
-      if (!questionsResponse.ok || !programsResponse.ok || !configResponse.ok) {
-        throw new Error('Failed to fetch data');
+      if (!questionsResponse.ok) {
+        throw new Error(`Failed to fetch from Google Sheets: HTTP ${questionsResponse.status}`);
       }
 
-      this.questionsData = await questionsResponse.json();
-      this.programsData = await programsResponse.json();
+      if (!configResponse.ok) {
+        throw new Error('Failed to fetch config data');
+      }
+
+      const questionsData = await questionsResponse.json();
+
+      if (questionsData.error) {
+        throw new Error(questionsData.message);
+      }
+
+      this.questionsData = questionsData;
       this.configData = await configResponse.json();
+
+      // Use maxSteps for progress calculation
+      this.maxSteps = this.questionsData.meta.maxSteps;
       this.progressWeights = this.questionsData.meta.progressWeights;
+
+      console.log('✅ Successfully loaded data from Google Sheets');
+      console.log('Questions data structure:', this.questionsData);
+      console.log('Available questions:', this.questionsData.questions);
+
     } catch (error) {
       throw new Error('Data loading failed: ' + error.message);
     }
@@ -59,7 +87,7 @@ class QuizApp {
       this.hideFeedback();
       this.proceedToNext();
     });
-    
+
     nameForm.addEventListener('submit', (e) => {
       e.preventDefault();
       this.handleNameSubmit();
@@ -76,7 +104,7 @@ class QuizApp {
         this.handleYearSelection(yearOption.dataset.year);
       }
     });
-    
+
     document.addEventListener('keydown', (e) => this.handleKeydown(e));
   }
 
@@ -84,7 +112,7 @@ class QuizApp {
     if (e.key === 'Escape') {
       const resultCard = document.getElementById('resultCard');
       const feedbackOverlay = document.getElementById('feedbackOverlay');
-      
+
       if (feedbackOverlay.classList.contains('visible')) {
         this.hideFeedback();
         this.proceedToNext();
@@ -99,11 +127,11 @@ class QuizApp {
     const questionCard = document.getElementById('questionCard');
     const resultCard = document.getElementById('resultCard');
     const nameInput = document.getElementById('nameInput');
-    
+
     welcomeCard.classList.remove('hidden');
     questionCard.classList.add('hidden');
     resultCard.classList.add('hidden');
-    
+
     this.updateProgress(0);
     nameInput.focus();
   }
@@ -111,7 +139,7 @@ class QuizApp {
   handleNameSubmit() {
     const nameInput = document.getElementById('nameInput');
     const name = nameInput.value.trim();
-    
+
     if (name) {
       this.userName = name;
       this.showYearSelection();
@@ -122,12 +150,12 @@ class QuizApp {
     const welcomeCard = document.getElementById('welcomeCard');
     const yearCard = document.getElementById('yearCard');
     const yearTitle = document.getElementById('yearTitle');
-    
+
     welcomeCard.classList.add('hidden');
     yearCard.classList.remove('hidden');
-    
+
     yearTitle.textContent = `Thanks, ${this.userName}! 📚`;
-    
+
     // Focus first year option
     const firstYearOption = document.querySelector('.year-option');
     if (firstYearOption) {
@@ -137,7 +165,7 @@ class QuizApp {
 
   handleYearSelection(year) {
     this.userYear = year;
-    
+
     if (year === 'parent') {
       this.showParentMessage();
     } else {
@@ -148,16 +176,17 @@ class QuizApp {
   showParentMessage() {
     const yearCard = document.getElementById('yearCard');
     const parentMessageCard = document.getElementById('parentMessageCard');
-    
+
     yearCard.classList.add('hidden');
     parentMessageCard.classList.remove('hidden');
-    
+
     const parentContinueBtn = document.getElementById('parentContinueBtn');
     parentContinueBtn.focus();
   }
 
   startQuiz() {
-    this.currentQuestionId = 'q_age_group';
+    // Use the first question from the loaded data
+    this.currentQuestionId = this.questionsData.questions[0].id;
     this.selectedAnswer = null;
     this.history = [];
     this.updateProgress(0);
@@ -166,7 +195,7 @@ class QuizApp {
 
   showQuestion() {
     const question = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
-    
+
     if (!question) {
       this.showError('Question not found');
       return;
@@ -177,7 +206,7 @@ class QuizApp {
     const parentMessageCard = document.getElementById('parentMessageCard');
     const questionCard = document.getElementById('questionCard');
     const resultCard = document.getElementById('resultCard');
-    
+
     welcomeCard.classList.add('hidden');
     yearCard.classList.add('hidden');
     parentMessageCard.classList.add('hidden');
@@ -187,6 +216,35 @@ class QuizApp {
     this.renderQuestion(question);
     this.updateBackButton();
     this.selectedAnswer = null;
+  }
+
+  showQuestionWithTransition() {
+    const questionContent = document.getElementById('questionContent');
+    
+    // Start exit animation
+    questionContent.classList.add('transitioning-out');
+    
+    // After exit animation, update content and animate in
+    setTimeout(() => {
+      this.showQuestion();
+      questionContent.classList.remove('transitioning-out');
+      questionContent.classList.add('transitioning-in');
+      
+      // Add entrance animations to options
+      const options = document.querySelectorAll('.option');
+      options.forEach(option => {
+        option.classList.add('animating-in');
+      });
+      
+      // Remove animation classes after animation completes
+      setTimeout(() => {
+        questionContent.classList.remove('transitioning-in');
+        options.forEach(option => {
+          option.classList.remove('animating-in');
+        });
+      }, 500);
+      
+    }, 300);
   }
 
   renderQuestion(question) {
@@ -199,7 +257,8 @@ class QuizApp {
     questionSubtitle.style.display = question.subtitle ? 'block' : 'none';
 
     optionsContainer.innerHTML = '';
-    optionsContainer.className = `options-container options-${question.ui}`;
+    const optionCount = question.options.length;
+    optionsContainer.className = `options-container options-${question.ui} options-count-${optionCount}`;
 
     question.options.forEach((option, index) => {
       const optionElement = this.createOptionElement(option, question.ui, index);
@@ -219,13 +278,13 @@ class QuizApp {
     // Extract emoji/icon and text from label
     const labelText = option.label;
     const emojiMatch = labelText.match(/^([^\w\s]+)\s*(.+)$/);
-    
+
     const iconSpan = document.createElement('span');
     iconSpan.className = 'option-icon';
-    
+
     const textSpan = document.createElement('span');
     textSpan.className = 'option-text';
-    
+
     if (emojiMatch) {
       // Map emojis to Font Awesome icons
       const emoji = emojiMatch[1].trim();
@@ -237,7 +296,7 @@ class QuizApp {
       iconSpan.innerHTML = '<i class="fas fa-star"></i>';
       textSpan.textContent = labelText;
     }
-    
+
     button.appendChild(iconSpan);
     button.appendChild(textSpan);
 
@@ -270,7 +329,7 @@ class QuizApp {
       '🏫': '<i class="fas fa-school"></i>',
       '👨‍👩‍👧‍👦': '<i class="fas fa-users"></i>'
     };
-    
+
     return emojiMap[emoji] || '<i class="fas fa-star"></i>';
   }
 
@@ -308,6 +367,8 @@ class QuizApp {
   }
 
   selectOption(optionId, button) {
+    console.log('selectOption called with:', optionId, button);
+    
     document.querySelectorAll('.option').forEach(opt => {
       opt.classList.remove('selected');
       opt.setAttribute('aria-checked', 'false');
@@ -316,11 +377,29 @@ class QuizApp {
     button.classList.add('selected');
     button.setAttribute('aria-checked', 'true');
     this.selectedAnswer = optionId;
-    
+
     // Check if this leads to a result or next question
     const currentQuestion = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
-    const nextId = currentQuestion.next[optionId];
+    console.log('Current question:', currentQuestion);
     
+    if (!currentQuestion) {
+      console.error('Current question not found:', this.currentQuestionId);
+      return;
+    }
+    
+    if (!currentQuestion.next) {
+      console.error('No next mapping found for question:', currentQuestion);
+      return;
+    }
+    
+    const nextId = currentQuestion.next[optionId];
+    console.log('Next ID:', nextId);
+    
+    if (!nextId) {
+      console.error('No next ID found for option:', optionId, 'in question:', currentQuestion.id);
+      return;
+    }
+
     // Show feedback message only if enabled and there's a next question
     setTimeout(() => {
       if (nextId.startsWith('out_')) {
@@ -347,7 +426,21 @@ class QuizApp {
     if (!this.selectedAnswer) return;
 
     const currentQuestion = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
+    
+    if (!currentQuestion) {
+      console.error('Current question not found in handleNext:', this.currentQuestionId);
+      this.showError('Navigation error: Current question not found');
+      return;
+    }
+    
     const nextId = currentQuestion.next[this.selectedAnswer];
+    console.log('handleNext - nextId:', nextId);
+    
+    if (!nextId) {
+      console.error('No next ID found for selected answer:', this.selectedAnswer);
+      this.showError('Navigation error: No next step defined for this option');
+      return;
+    }
 
     this.history.push({
       questionId: this.currentQuestionId,
@@ -359,9 +452,17 @@ class QuizApp {
     if (nextId.startsWith('out_')) {
       this.showResult(nextId);
     } else {
+      // Verify the next question exists before navigating
+      const nextQuestion = this.questionsData.questions.find(q => q.id === nextId);
+      if (!nextQuestion) {
+        console.error('Next question not found:', nextId);
+        this.showError(`Question "${nextId}" not found in data`);
+        return;
+      }
+      
       this.currentQuestionId = nextId;
       this.selectedAnswer = null;
-      this.showQuestion();
+      this.showQuestionWithTransition();
     }
   }
 
@@ -374,9 +475,9 @@ class QuizApp {
     const previous = this.history.pop();
     this.currentQuestionId = previous.questionId;
     this.selectedAnswer = previous.selectedAnswer;
-    
+
     this.updateProgress(this.calculateProgress());
-    this.showQuestion();
+    this.showQuestionWithTransition();
 
     setTimeout(() => {
       const selectedOption = document.querySelector(`[data-option-id="${this.selectedAnswer}"]`);
@@ -390,28 +491,39 @@ class QuizApp {
   calculateProgress() {
     if (this.history.length === 0) return 0;
 
-    let totalWeight = 0;
-    this.history.forEach(item => {
-      const weight = this.progressWeights[item.questionId] || 0;
-      totalWeight += weight;
-    });
+    // Use new maxSteps calculation if available
+    if (this.maxSteps && this.maxSteps > 0) {
+      const currentStep = this.history.length;
+      return Math.min((currentStep / this.maxSteps) * 100, 100);
+    }
 
-    return Math.min(totalWeight * 100, 100);
+    // Fallback to old progressWeights method for backward compatibility
+    if (this.progressWeights) {
+      let totalWeight = 0;
+      this.history.forEach(item => {
+        const weight = this.progressWeights[item.questionId] || 0;
+        totalWeight += weight;
+      });
+      return Math.min(totalWeight * 100, 100);
+    }
+
+    // Final fallback: simple step counting (not ideal for decision trees)
+    const totalQuestions = this.questionsData.questions.length;
+    return Math.min((this.history.length / totalQuestions) * 100, 100);
   }
 
   updateProgress(percentage) {
     const progressBar = document.getElementById('progressBar');
     const progressContainer = document.querySelector('.progress-container');
-    
+
     progressBar.style.width = `${percentage}%`;
     progressContainer.setAttribute('aria-valuenow', percentage);
   }
 
   showResult(outcomeId) {
     const outcome = this.questionsData.outcomes.find(o => o.id === outcomeId);
-    const program = this.programsData.find(p => p.id === outcome.programId);
 
-    if (!outcome || !program) {
+    if (!outcome || !outcome.course) {
       this.showError('Result not found');
       return;
     }
@@ -420,76 +532,134 @@ class QuizApp {
 
     const questionCard = document.getElementById('questionCard');
     const resultCard = document.getElementById('resultCard');
-    
+
     questionCard.classList.add('hidden');
     resultCard.classList.remove('hidden');
 
-    this.renderResult(outcome, program);
-    
+    this.renderResult(outcome);
+
     document.getElementById('resultTitle').focus();
   }
 
-  renderResult(outcome, program) {
+  renderResult(outcome) {
     const resultTitle = document.getElementById('resultTitle');
     const resultBlurb = document.getElementById('resultBlurb');
-    const programTitle = document.getElementById('programTitle');
-    const programCampus = document.getElementById('programCampus');
-    const programNotes = document.getElementById('programNotes');
+    const courseTitle = document.getElementById('courseTitle');
+    const courseCampus = document.getElementById('courseCampus');
     const exploreCourseBtn = document.getElementById('exploreCourseBtn');
 
-    resultTitle.textContent = `Perfect match, ${this.userName}! 🎉`;
+    resultTitle.textContent = `${outcome.title}, ${this.userName}! 🎉`;
     resultBlurb.textContent = `${outcome.blurb} This could be your ideal pathway to a rewarding teaching career!`;
-    programTitle.textContent = program.title;
-    programCampus.textContent = program.campus;
-    
-    // Only show notes if they exist and are not empty
-    if (program.notes && program.notes.trim() !== '') {
-      programNotes.textContent = program.notes;
-      programNotes.style.display = 'block';
-    } else {
-      programNotes.style.display = 'none';
-    }
-    
-    exploreCourseBtn.href = program.url;
-    exploreCourseBtn.setAttribute('aria-label', `Explore ${program.title}`);
-    
+    courseTitle.textContent = outcome.course.title;
+    courseCampus.textContent = outcome.course.campus;
+
+    exploreCourseBtn.href = outcome.course.url;
+    exploreCourseBtn.setAttribute('aria-label', `Explore ${outcome.course.title}`);
+
     // Load custom content for this outcome
-    this.loadCustomContent(outcome.id);
+    this.loadCustomContent(outcome);
   }
 
-  async loadCustomContent(outcomeId) {
+  loadCustomContent(outcome) {
     const customContentElement = document.getElementById('customContent');
-    
-    try {
-      const response = await fetch(`templates/${outcomeId}.html`);
-      
-      if (response.ok) {
-        const htmlContent = await response.text();
-        customContentElement.innerHTML = htmlContent;
-        customContentElement.classList.remove('hidden');
-      } else {
-        // Template file doesn't exist, hide the container
-        customContentElement.classList.add('hidden');
-        customContentElement.innerHTML = '';
-      }
-    } catch (error) {
-      // Network error or file doesn't exist, hide the container
+
+    if (outcome.description && outcome.description.trim() !== '') {
+      // Convert markdown to HTML
+      const htmlContent = this.parseMarkdown(outcome.description);
+      customContentElement.innerHTML = htmlContent;
+      customContentElement.classList.remove('hidden');
+    } else {
+      // No description available, hide the container
       customContentElement.classList.add('hidden');
       customContentElement.innerHTML = '';
     }
   }
 
+  parseMarkdown(markdown) {
+    // Simple markdown parser for basic formatting
+    let html = markdown;
+
+    // Convert headers (#### to h4)
+    html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+
+    // Convert bold text (**text** to <strong>text</strong>)
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Convert bullet points (- text to <li>text</li>)
+    html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+
+    // Wrap consecutive <li> elements in <ul>
+    html = html.replace(/(<li>.*<\/li>)/s, (match) => {
+      // Split into lines and wrap consecutive li elements
+      const lines = match.split('\n');
+      let result = '';
+      let inList = false;
+
+      for (let line of lines) {
+        if (line.trim().startsWith('<li>')) {
+          if (!inList) {
+            result += '<ul>\n';
+            inList = true;
+          }
+          result += line + '\n';
+        } else {
+          if (inList) {
+            result += '</ul>\n';
+            inList = false;
+          }
+          result += line + '\n';
+        }
+      }
+
+      if (inList) {
+        result += '</ul>\n';
+      }
+
+      return result;
+    });
+
+    // Convert line breaks to paragraphs
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/^(?!<[uh])/gm, '<p>');
+    html = html.replace(/(?!<\/[uh]>)$/gm, '</p>');
+
+    // Clean up extra paragraphs around headers and lists
+    html = html.replace(/<p><h4>/g, '<h4>');
+    html = html.replace(/<\/h4><\/p>/g, '</h4>');
+    html = html.replace(/<p><ul>/g, '<ul>');
+    html = html.replace(/<\/ul><\/p>/g, '</ul>');
+    html = html.replace(/<p><\/p>/g, '');
+
+    return html;
+  }
+
   showError(message) {
     const questionCard = document.getElementById('questionCard');
     const resultCard = document.getElementById('resultCard');
-    
+
     questionCard.classList.add('hidden');
     resultCard.classList.remove('hidden');
 
     document.getElementById('resultTitle').textContent = 'Oops!';
     document.getElementById('resultBlurb').textContent = message;
-    document.getElementById('programDetails').style.display = 'none';
+    document.getElementById('courseDetails').style.display = 'none';
     document.getElementById('exploreCourseBtn').style.display = 'none';
+  }
+
+  showLoading() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const app = document.querySelector('.app');
+    
+    loadingOverlay.classList.remove('hidden');
+    app.style.display = 'none'; // Hide main app during loading
+  }
+
+  hideLoading() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const app = document.querySelector('.app');
+    
+    loadingOverlay.classList.add('hidden');
+    app.style.display = 'flex'; // Show main app after loading
   }
 
   getFeedbackMessage(questionId, optionId) {
@@ -531,7 +701,7 @@ class QuizApp {
     feedbackIcon.textContent = feedback.icon;
     feedbackTitle.textContent = feedback.title;
     feedbackMessage.textContent = feedback.message;
-    
+
     feedbackOverlay.classList.remove('hidden');
     setTimeout(() => {
       feedbackOverlay.classList.add('visible');
@@ -541,12 +711,12 @@ class QuizApp {
 
   hideFeedback() {
     const feedbackOverlay = document.getElementById('feedbackOverlay');
-    
+
     if (this.feedbackTimeout) {
       clearTimeout(this.feedbackTimeout);
       this.feedbackTimeout = null;
     }
-    
+
     feedbackOverlay.classList.remove('visible');
     setTimeout(() => {
       feedbackOverlay.classList.add('hidden');
