@@ -495,17 +495,17 @@ class QuizApp {
   getFeedbackMessage(questionId, optionId) {
     // Get the question data
     const question = this.questionsData.questions.find(q => q.id === questionId);
-    if (!question || !question.feedback || !question.feedback.messages) {
+    if (!question || !question.options) {
       return this.getDefaultFeedbackMessage();
     }
 
-    // Get the specific message for this option
-    const messageData = question.feedback.messages[optionId];
-    if (messageData) {
+    // Find the specific option
+    const option = question.options.find(opt => opt.id === optionId);
+    if (option && option.feedback) {
       return {
-        icon: messageData.icon || '✨',
-        title: messageData.title?.replace('{name}', this.userName) || `Great choice, ${this.userName}!`,
-        message: messageData.message || 'You\'re on the right track!'
+        icon: option.feedback.icon || '✨',
+        title: option.feedback.title?.replace('{name}', this.userName) || `Great choice, ${this.userName}!`,
+        message: option.feedback.message || 'You\'re on the right track!'
       };
     }
 
@@ -561,17 +561,12 @@ class QuizApp {
 
     // Get the specific question data
     const question = this.questionsData.questions.find(q => q.id === questionId);
-    if (!question) {
-      return this.configData.feedback.defaultEnabled;
+    if (!question || !question.options) {
+      return false;
     }
 
-    // Check if question has feedback configuration
-    if (question.feedback && question.feedback.hasOwnProperty('enabled')) {
-      return question.feedback.enabled;
-    }
-
-    // Fall back to default setting
-    return this.configData.feedback.defaultEnabled;
+    // Check if any option has feedback data
+    return question.options.some(option => option.feedback);
   }
 
   proceedToNext() {
