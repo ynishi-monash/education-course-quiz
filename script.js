@@ -142,7 +142,7 @@ class QuizApp {
 
     if (name) {
       this.userName = name;
-      this.showYearSelection();
+      this.startQuiz();
     }
   }
 
@@ -290,15 +290,25 @@ class QuizApp {
       const emoji = emojiMatch[1].trim();
       const fontAwesomeIcon = this.mapEmojiToFontAwesome(emoji);
       iconSpan.innerHTML = fontAwesomeIcon;
-      textSpan.textContent = emojiMatch[2].trim();
+      // Parse markdown in the text portion
+      textSpan.innerHTML = this.parseSimpleMarkdown(emojiMatch[2].trim());
     } else {
       // No emoji, use a default icon
       iconSpan.innerHTML = '<i class="fas fa-star"></i>';
-      textSpan.textContent = labelText;
+      // Parse markdown in the full label text
+      textSpan.innerHTML = this.parseSimpleMarkdown(labelText);
     }
 
     button.appendChild(iconSpan);
     button.appendChild(textSpan);
+
+    // Add description if present
+    if (option.description) {
+      const descSpan = document.createElement('span');
+      descSpan.className = 'option-description';
+      descSpan.innerHTML = this.parseSimpleMarkdown(option.description);
+      button.appendChild(descSpan);
+    }
 
     button.addEventListener('click', () => this.selectOption(option.id, button));
     button.addEventListener('keydown', (e) => this.handleOptionKeydown(e, option.id, button));
@@ -554,6 +564,8 @@ class QuizApp {
     courseCampus.textContent = outcome.course.campus;
 
     exploreCourseBtn.href = outcome.course.url;
+    exploreCourseBtn.target = '_blank';
+    exploreCourseBtn.rel = 'noopener noreferrer';
     exploreCourseBtn.setAttribute('aria-label', `Explore ${outcome.course.title}`);
 
     // Load custom content for this outcome
@@ -629,6 +641,22 @@ class QuizApp {
     html = html.replace(/<p><ul>/g, '<ul>');
     html = html.replace(/<\/ul><\/p>/g, '</ul>');
     html = html.replace(/<p><\/p>/g, '');
+
+    return html;
+  }
+
+  parseSimpleMarkdown(text) {
+    // Simple markdown parser for option labels (inline formatting only)
+    let html = text;
+
+    // Convert bold text (**text** to <strong>text</strong>)
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Convert italic text (*text* to <em>text</em>)
+    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+    // Convert code text (`text` to <code>text</code>)
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
     return html;
   }

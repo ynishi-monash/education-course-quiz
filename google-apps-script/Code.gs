@@ -208,12 +208,13 @@ function getOptionsData(ss) {
   const data = sheet.getDataRange().getValues();
   const headers = data[0];
   
-  // Expected columns: questionId, label, nextId, feedbackIcon, feedbackTitle, feedbackMessage
+  // Expected columns: questionId, label, description, nextId, feedbackIcon, feedbackTitle, feedbackMessage
   // Note: optionId is now auto-generated, no longer required in spreadsheet
   const colMap = {
     questionId: headers.indexOf('questionId'),
     optionId: headers.indexOf('optionId'), // Optional - for backward compatibility
     label: headers.indexOf('label'),
+    description: headers.indexOf('description'), // Optional description text
     nextId: headers.indexOf('nextId'),
     feedbackIcon: headers.indexOf('feedbackIcon'),
     feedbackTitle: headers.indexOf('feedbackTitle'),
@@ -252,6 +253,11 @@ function getOptionsData(ss) {
       id: optionId,
       label: row[colMap.label]
     };
+    
+    // Add description if present
+    if (colMap.description !== -1 && row[colMap.description]) {
+      option.description = row[colMap.description];
+    }
     
     // Add feedback if present
     if (row[colMap.feedbackIcon] || row[colMap.feedbackTitle] || row[colMap.feedbackMessage]) {

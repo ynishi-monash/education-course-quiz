@@ -25,14 +25,17 @@ This guide shows how to set up the enhanced two-sheet structure with data valida
 ### 2. Options Sheet Enhancements
 
 #### Column Structure:
-| A | B | C | D | E | F | G | H |
-|---|---|---|---|---|---|---|---|
-| questionId | optionId | label | nextId | feedbackIcon | feedbackTitle | feedbackMessage | question_text |
+| A | B | C | D | E | F | G | H | I |
+|---|---|---|---|---|---|---|---|---|
+| questionId | optionId | label | description | nextId | feedbackIcon | feedbackTitle | feedbackMessage | question_text |
 
 #### Data Validation:
 - **Column A (questionId)**: Dropdown referencing Questions.A:A
-- **Column D (nextId)**: Dropdown with question IDs + outcome IDs
-- **Column H (question_text)**: Formula: `=VLOOKUP(A2,Questions.A:D,4,FALSE)` (shows question for context)
+- **Column E (nextId)**: Dropdown with question IDs + outcome IDs
+- **Column I (question_text)**: Formula: `=VLOOKUP(A2,Questions.A:D,4,FALSE)` (shows question for context)
+
+#### Column Descriptions:
+- **description**: Optional smaller text shown under the main label (supports **bold**, *italic*, and `code` markdown)
 
 #### Conditional Formatting:
 - **Group by Question**: Alternate background colors for each questionId group
