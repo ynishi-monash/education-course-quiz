@@ -275,31 +275,20 @@ class QuizApp {
     button.setAttribute('aria-checked', 'false');
     button.setAttribute('tabindex', index === 0 ? '0' : '-1');
 
-    // Extract emoji/icon and text from label
+    // Extract text from label (remove emoji/icon if present)
     const labelText = option.label;
     const emojiMatch = labelText.match(/^([^\w\s]+)\s*(.+)$/);
-
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'option-icon';
 
     const textSpan = document.createElement('span');
     textSpan.className = 'option-text';
 
+    // Use text without emoji if match found, otherwise use full label
     if (emojiMatch) {
-      // Map emojis to Font Awesome icons
-      const emoji = emojiMatch[1].trim();
-      const fontAwesomeIcon = this.mapEmojiToFontAwesome(emoji);
-      iconSpan.innerHTML = fontAwesomeIcon;
-      // Parse markdown in the text portion
       textSpan.innerHTML = this.parseSimpleMarkdown(emojiMatch[2].trim());
     } else {
-      // No emoji, use a default icon
-      iconSpan.innerHTML = '<i class="fas fa-star"></i>';
-      // Parse markdown in the full label text
       textSpan.innerHTML = this.parseSimpleMarkdown(labelText);
     }
 
-    button.appendChild(iconSpan);
     button.appendChild(textSpan);
 
     // Add description if present

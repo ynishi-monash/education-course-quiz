@@ -249,7 +249,7 @@ body {
 
 .quiz-container {
   width: 100%;
-  max-width: 1240px;
+  max-width: 800px;
 }
 
 .welcome-card,
@@ -282,6 +282,9 @@ body {
 .options-container {
   margin-bottom: 3rem;
   text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Fun color variations for different option positions */
@@ -323,42 +326,42 @@ body {
 
 /* Default grid for unknown counts */
 .options-cards {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  grid-template-columns: 1fr;
 }
 
 /* Specific layouts for different option counts */
 .options-count-2.options-cards {
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .options-count-3.options-cards {
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .options-count-4.options-cards {
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .options-count-5.options-cards {
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 768px) {
   .options-count-2.options-cards {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .options-count-3.options-cards {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
 
   }
 
   .options-count-4.options-cards {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .options-count-5.options-cards {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-columns: 1fr;
 
   }
 }
@@ -367,45 +370,34 @@ body {
   background: var(--white);
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.5rem;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
-  text-align: center;
+  text-align: left;
   min-height: 80px;
   position: relative;
   overflow: hidden;
-  gap: 1rem;
+  gap: 0.5rem;
   width: 100%;
-}
-
-.option-icon {
-  font-size: 3.4rem;
-  line-height: 1;
-  color: #33454f;
-  transition: color 0.2s ease;
-}
-
-.option:hover .option-icon {
-  color: var(--monash-blue);
 }
 
 .option-text {
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   line-height: 1.2;
 }
 
 .option-description {
   font-size: 0.85rem;
   color: var(--text-secondary);
-  text-align: center;
+  text-align: left;
   line-height: 1.3;
   opacity: 0.85;
 }
