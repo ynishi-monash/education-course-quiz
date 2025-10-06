@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find your course crush</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <link rel="stylesheet" href="style.css">
     <!-- Loading Screen -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
@@ -23,9 +23,9 @@
         <div class="top-header">
             <div class="brand-text">EDUCATION QUIZ</div>
         </div>
-        
+
         <header class="header">
-            <h1 class="title">Find your course crush</h1>
+            <h1 class="title">Education course quiz</h1>
             <div class="progress-container" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -37,19 +37,11 @@
                     <div class="welcome-content">
                         <h2 class="welcome-title">👋 G'day! Let's find your perfect course</h2>
                         <p class="welcome-subtitle">First things first — what should we call you?</p>
-                        
+
                         <form class="name-form" id="nameForm">
                             <div class="name-input-container">
                                 <label for="nameInput" class="name-label">Your name</label>
-                                <input 
-                                    type="text" 
-                                    id="nameInput" 
-                                    class="name-input" 
-                                    placeholder="Enter your first name"
-                                    autocomplete="given-name"
-                                    required
-                                    maxlength="50"
-                                >
+                                <input type="text" id="nameInput" class="name-input" placeholder="Enter your first name" autocomplete="given-name" required maxlength="50">
                             </div>
                             <button type="submit" class="btn btn-primary btn-large" id="startQuizBtn">
                                 <span class="btn-icon"><i class="fas fa-rocket"></i></span>
@@ -63,7 +55,7 @@
                     <div class="year-content">
                         <h2 class="year-title" id="yearTitle">Thanks, [Name]! 📚</h2>
                         <p class="year-subtitle">What year of school are you in?</p>
-                        
+
                         <div class="year-options">
                             <button type="button" class="option cards year-option" data-year="year10">
                                 <span class="option-icon"><i class="fas fa-book-open"></i></span>
@@ -109,7 +101,7 @@
                         <p class="question-subtitle" id="questionSubtitle"></p>
                         <div class="options-container" id="optionsContainer"></div>
                     </div>
-                    
+
                     <div class="quiz-actions">
                         <button type="button" class="btn btn-secondary" id="backBtn" aria-label="Go back to previous question">
                             <span class="btn-icon"><i class="fas fa-arrow-left"></i></span>
@@ -122,7 +114,7 @@
                     <div class="result-content">
                         <h2 class="result-title" id="resultTitle"></h2>
                         <p class="result-blurb" id="resultBlurb"></p>
-                        
+
                         <div class="course-details" id="courseDetails">
                             <h3 class="course-title" id="courseTitle"></h3>
                             <div class="course-info">
@@ -136,7 +128,7 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <div class="result-actions">
                             <button type="button" class="btn btn-secondary" id="startOverBtn" aria-label="Start the quiz over">
                                 <span class="btn-icon"><i class="fas fa-redo"></i></span>

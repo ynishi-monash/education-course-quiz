@@ -18,10 +18,10 @@ class QuizApp {
     try {
       // Show loading screen initially
       this.showLoading();
-      
+
       await this.loadData();
       this.bindEvents();
-      
+
       // Hide loading screen and show welcome
       this.hideLoading();
       this.showWelcome();
@@ -220,22 +220,22 @@ class QuizApp {
 
   showQuestionWithTransition() {
     const questionContent = document.getElementById('questionContent');
-    
+
     // Start exit animation
     questionContent.classList.add('transitioning-out');
-    
+
     // After exit animation, update content and animate in
     setTimeout(() => {
       this.showQuestion();
       questionContent.classList.remove('transitioning-out');
       questionContent.classList.add('transitioning-in');
-      
+
       // Add entrance animations to options
       const options = document.querySelectorAll('.option');
       options.forEach(option => {
         option.classList.add('animating-in');
       });
-      
+
       // Remove animation classes after animation completes
       setTimeout(() => {
         questionContent.classList.remove('transitioning-in');
@@ -243,7 +243,7 @@ class QuizApp {
           option.classList.remove('animating-in');
         });
       }, 500);
-      
+
     }, 300);
   }
 
@@ -367,7 +367,7 @@ class QuizApp {
 
   selectOption(optionId, button) {
     console.log('selectOption called with:', optionId, button);
-    
+
     document.querySelectorAll('.option').forEach(opt => {
       opt.classList.remove('selected');
       opt.setAttribute('aria-checked', 'false');
@@ -380,20 +380,20 @@ class QuizApp {
     // Check if this leads to a result or next question
     const currentQuestion = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
     console.log('Current question:', currentQuestion);
-    
+
     if (!currentQuestion) {
       console.error('Current question not found:', this.currentQuestionId);
       return;
     }
-    
+
     if (!currentQuestion.next) {
       console.error('No next mapping found for question:', currentQuestion);
       return;
     }
-    
+
     const nextId = currentQuestion.next[optionId];
     console.log('Next ID:', nextId);
-    
+
     if (!nextId) {
       console.error('No next ID found for option:', optionId, 'in question:', currentQuestion.id);
       return;
@@ -425,16 +425,16 @@ class QuizApp {
     if (!this.selectedAnswer) return;
 
     const currentQuestion = this.questionsData.questions.find(q => q.id === this.currentQuestionId);
-    
+
     if (!currentQuestion) {
       console.error('Current question not found in handleNext:', this.currentQuestionId);
       this.showError('Navigation error: Current question not found');
       return;
     }
-    
+
     const nextId = currentQuestion.next[this.selectedAnswer];
     console.log('handleNext - nextId:', nextId);
-    
+
     if (!nextId) {
       console.error('No next ID found for selected answer:', this.selectedAnswer);
       this.showError('Navigation error: No next step defined for this option');
@@ -458,7 +458,7 @@ class QuizApp {
         this.showError(`Question "${nextId}" not found in data`);
         return;
       }
-      
+
       this.currentQuestionId = nextId;
       this.selectedAnswer = null;
       this.showQuestionWithTransition();
@@ -547,7 +547,7 @@ class QuizApp {
     const courseCampus = document.getElementById('courseCampus');
     const exploreCourseBtn = document.getElementById('exploreCourseBtn');
 
-    resultTitle.textContent = `${outcome.title}, ${this.userName}! 🎉`;
+    resultTitle.textContent = `${outcome.title} 🎉`;
     resultBlurb.textContent = `${outcome.blurb} This could be your ideal pathway to a rewarding teaching career!`;
     courseTitle.textContent = outcome.course.title;
     courseCampus.textContent = outcome.course.campus;
@@ -666,7 +666,7 @@ class QuizApp {
   showLoading() {
     const loadingOverlay = document.getElementById('loadingOverlay');
     const app = document.querySelector('.app');
-    
+
     loadingOverlay.classList.remove('hidden');
     app.style.display = 'none'; // Hide main app during loading
   }
@@ -674,7 +674,7 @@ class QuizApp {
   hideLoading() {
     const loadingOverlay = document.getElementById('loadingOverlay');
     const app = document.querySelector('.app');
-    
+
     loadingOverlay.classList.add('hidden');
     app.style.display = 'flex'; // Show main app after loading
   }
