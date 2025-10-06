@@ -20,9 +20,7 @@ Interactive quiz application to help students find suitable education courses at
 - **Button Style**: Icon-over-text layout changed to inline (icon + text side-by-side)
 
 ### Data Structure
-- **Questions**: `questions.json` - Contains quiz flow, feedback configuration
-- **Programs**: `programs.json` - Course details with optional notes field
-- **Config**: `config.json` - Global settings (minimal, most config moved to questions)
+- **Google Sheets**: Primary data source via Apps Script (questions, options, outcomes, metadata)
 - **Templates**: `templates/{outcome-id}.html` - Custom HTML content per result
 
 ## File Structure
@@ -31,9 +29,6 @@ Interactive quiz application to help students find suitable education courses at
 ├── index.html              # Main application
 ├── style.css              # All styling
 ├── script.js              # Quiz logic and interactions
-├── questions.json         # Quiz questions and feedback
-├── programs.json          # Course/program data
-├── config.json           # Global configuration
 ├── templates/             # Custom result templates
 │   ├── out_early_primary.html
 │   ├── out_primary_double.html
@@ -47,6 +42,11 @@ Interactive quiz application to help students find suitable education courses at
 │   ├── out_sec_science_tech.html
 │   ├── out_sec_visual_arts.html
 │   └── out_sec_hpe.html
+├── google-apps-script/    # Google Sheets integration
+│   ├── Code.gs           # Apps Script API
+│   ├── questions.csv     # Source data for import
+│   ├── options.csv       # Source data for import
+│   └── outcomes.csv      # Source data for import
 └── CLAUDE.md             # This memory bank
 ```
 

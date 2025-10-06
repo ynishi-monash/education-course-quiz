@@ -2,7 +2,6 @@ class QuizApp {
   constructor() {
     this.questionsData = null;
     this.programsData = null;
-    this.configData = null;
     this.currentQuestionId = null;
     this.selectedAnswer = null;
     this.history = [];
@@ -39,17 +38,10 @@ class QuizApp {
 
     try {
       console.log('Loading data from Google Sheets...');
-      const [questionsResponse, configResponse] = await Promise.all([
-        fetch(APPS_SCRIPT_URL),
-        fetch('config.json')
-      ]);
+      const questionsResponse = await fetch(APPS_SCRIPT_URL);
 
       if (!questionsResponse.ok) {
         throw new Error(`Failed to fetch from Google Sheets: HTTP ${questionsResponse.status}`);
-      }
-
-      if (!configResponse.ok) {
-        throw new Error('Failed to fetch config data');
       }
 
       const questionsData = await questionsResponse.json();
@@ -59,7 +51,6 @@ class QuizApp {
       }
 
       this.questionsData = questionsData;
-      this.configData = await configResponse.json();
 
       // Use maxSteps for progress calculation
       this.maxSteps = this.questionsData.meta.maxSteps;
@@ -741,11 +732,6 @@ class QuizApp {
   }
 
   shouldShowFeedback(questionId) {
-    // Check if feedback system is globally enabled
-    if (!this.configData || !this.configData.feedback.enabled) {
-      return false;
-    }
-
     // Get the specific question data
     const question = this.questionsData.questions.find(q => q.id === questionId);
     if (!question || !question.options) {
