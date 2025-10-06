@@ -11,7 +11,7 @@ This guide walks you through setting up the Google Sheets + Apps Script solution
 3. Rename it to "Education Quiz Questions"
 4. Create 4 sheets with the following names:
    - Meta
-   - Questions  
+   - Questions
    - Options
    - Outcomes
 
@@ -19,10 +19,9 @@ This guide walks you through setting up the Google Sheets + Apps Script solution
 
 1. Create a new Google Sheets document
 2. For each sheet, use "File" → "Import" and upload the corresponding CSV:
-   - Import `questions.csv` to "Questions" sheet  
-   - Import `simplified-options.csv` to "Options" sheet (no optionId column needed!)
-   - Import `outcomes-merged.csv` to "Outcomes" sheet (includes all program data!)
-   - *(Skip meta.csv - progress is now calculated automatically)*
+   - Import `questions.csv` to "Questions" sheet
+   - Import `options.csv` to "Options" sheet (no optionId column needed!)
+   - Import `outcomes.csv` to "Outcomes" sheet (includes all program data!)
 3. **Add your own enhancements**:
    - Create pivot tables for data analysis
    - Add lookup formulas for data validation
@@ -39,6 +38,7 @@ This guide walks you through setting up the Google Sheets + Apps Script solution
 ### Configure the Script
 
 1. Find this line in the code:
+
    ```javascript
    SPREADSHEET_ID: 'YOUR_GOOGLE_SHEETS_ID_HERE',
    ```
@@ -46,11 +46,13 @@ This guide walks you through setting up the Google Sheets + Apps Script solution
 2. **Sheet ID Configuration**: You have two options:
 
    **Option A: Use URL Parameters Only (Recommended)**
+
    - Leave `SPREADSHEET_ID: 'YOUR_GOOGLE_SHEETS_ID_HERE'` as-is
    - Always provide sheet ID via URL: `?sheetId=YOUR_GOOGLE_SHEETS_ID`
    - More flexible for multiple sheets
 
    **Option B: Set Default Sheet ID**
+
    - Replace `YOUR_GOOGLE_SHEETS_ID_HERE` with your Google Sheets ID
    - Copy ID from URL: `https://docs.google.com/spreadsheets/d/[SPREADSHEET_ID]/edit`
    - Allows usage without URL parameters
@@ -62,6 +64,7 @@ This guide walks you through setting up the Google Sheets + Apps Script solution
 1. In the Apps Script editor, select the `testGeneration` function from the dropdown
 2. Click the "Run" button (▶️)
 3. Grant permissions when prompted:
+
    - Click "Review permissions"
    - Choose your Google account
    - Click "Advanced" → "Go to Quiz Questions API (unsafe)"
@@ -90,11 +93,13 @@ The web app now supports dynamic sheet selection via URL parameters:
 - **With sheet ID**: `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?sheetId=YOUR_GOOGLE_SHEETS_ID`
 
 This allows you to:
+
 - Use different Google Sheets for different quiz versions
-- Switch between development and production sheets  
+- Switch between development and production sheets
 - Support multiple quiz configurations with one script
 
 ### Security Note
+
 If you want to restrict access, choose "Anyone with the link" instead of "Anyone". The quiz app will still work, but the URL won't be publicly discoverable.
 
 ## Step 5: Update Quiz Application
@@ -108,22 +113,22 @@ async loadData() {
   // Your Apps Script web app URL (with optional sheet ID parameter)
   const APPS_SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE'; // Replace with your actual URL
   // const APPS_SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE?sheetId=YOUR_SHEET_ID'; // With specific sheet
-  
+
   try {
     // Try loading from Google Sheets first
     console.log('Loading questions from Google Sheets...');
     const response = await fetch(APPS_SCRIPT_URL);
-    
+
     if (response.ok) {
       const questionsData = await response.json();
-      
+
       if (questionsData.error) {
         throw new Error(questionsData.message);
       }
-      
+
       this.questionsData = questionsData;
       console.log('✅ Successfully loaded questions from Google Sheets');
-      
+
       // Load other data files (programs now included in questionsData)
       const configResponse = await fetch('config.json');
 
@@ -134,16 +139,16 @@ async loadData() {
       this.programsData = questionsData.programs || []; // Programs included in sheets data
       this.configData = await configResponse.json();
       this.progressWeights = this.questionsData.meta.progressWeights;
-      
+
       return; // Success - exit here
     } else {
       throw new Error(`HTTP ${response.status}`);
     }
-    
+
   } catch (error) {
     console.warn('Failed to load from Google Sheets:', error.message);
     console.log('Falling back to local questions.json...');
-    
+
     // Fallback to local files
     const [questionsResponse, programsResponse, configResponse] = await Promise.all([
       fetch('questions.json'),
@@ -159,7 +164,7 @@ async loadData() {
     this.programsData = await programsResponse.json();
     this.configData = await configResponse.json();
     this.progressWeights = this.questionsData.meta.progressWeights;
-    
+
     console.log('✅ Loaded from local files as fallback');
   }
 }
@@ -182,7 +187,7 @@ async loadData() {
 ### Making Changes
 
 1. **Edit Questions**: Modify text in the Questions sheet
-2. **Update Options**: Change labels or feedback in the Options sheet  
+2. **Update Options**: Change labels or feedback in the Options sheet
 3. **Modify Flow**: Update the "nextId" column to change question routing
 4. **Add Content**: Insert new rows with the required data
 
@@ -198,15 +203,18 @@ async loadData() {
 ### Common Issues
 
 1. **"Failed to load from Google Sheets" error**
+
    - Check that the spreadsheet ID is correct in the Apps Script
    - Verify the web app is deployed and URL is correct
    - Ensure sheets have the exact names: Meta, Questions, Options, Outcomes
 
 2. **"Permission denied" errors**
+
    - Re-run the Apps Script authorization process
    - Check that the web app access is set to "Anyone" or "Anyone with the link"
 
 3. **Questions not updating**
+
    - Make sure you're editing the correct Google Sheets
    - Check browser cache - try hard refresh (Ctrl+F5)
    - Verify the Apps Script deployment is using the latest code

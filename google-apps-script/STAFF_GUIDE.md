@@ -13,44 +13,47 @@ You can now manage all quiz questions, answers, and feedback messages using a fa
 
 ## Understanding the Sheets
 
-### 📊 Meta Sheet
-**Purpose**: Controls the progress bar weights for each question
-**What you see**: A list of question IDs and their weight values
-**⚠️ Do not edit** unless specifically instructed - this affects the progress bar calculations
-
 ### ❓ Questions Sheet (Enhanced)
+
 **Purpose**: The main question text and settings
 **Columns you can edit**:
+
 - **text**: The main question displayed to students
 - **subtitle**: Optional additional text below the question
 - **type**: Dropdown menu - choose "single" (one answer) or "multiple" (multiple answers)
 - **ui**: Dropdown menu - choose "cards" (button style) or "chips" (compact style)
 
 **🎯 New Features**:
+
 - **Dropdown menus prevent typos** in type and ui columns
 - **Option count column** shows how many answer choices each question has
 - **Color coding** highlights questions missing answer options
 
 ### 🎯 Options Sheet (Simplified!)
+
 **Purpose**: Answer choices, feedback messages, and question flow
 **✨ New**: Option IDs are automatically generated - no more manual ID entry!
 
 **Columns you need to fill**:
+
 - **questionId**: Dropdown menu - prevents typos by showing valid question IDs
 - **label**: The text shown on answer buttons (includes emojis)
-- **nextId**: Where to go next (question ID or outcome ID starting with "out_")
-- **feedbackTitle**: Personalized title shown after selection (use {name} for student's name)  
+- **nextId**: Where to go next (question ID or outcome ID starting with "out\_")
+- **feedbackTitle**: Personalized title shown after selection (use {name} for student's name)
 - **feedbackMessage**: Encouraging message explaining the choice
 
 **🎯 New Features**:
+
 - **Color-coded rows** group options by question for easier editing
 - **Question text helper** shows the full question text for context
 - **Dropdown validation** prevents invalid question IDs
 - **Error highlighting** shows options with broken navigation links
 
 ### 🎓 Outcomes Sheet (Enhanced!)
+
 **Purpose**: Final results and complete course information
 **Columns you can edit**:
+
 - **title**: Outcome title shown to students
 - **blurb**: Short description of the educational pathway
 - **courseTitle**: Full official course name
@@ -59,6 +62,7 @@ You can now manage all quiz questions, answers, and feedback messages using a fa
 - **description**: Detailed markdown content (replaces template files!)
 
 **✨ New Features**:
+
 - **All course data in one place** - no need for separate course files
 - **Markdown descriptions** - rich content using simple markdown syntax
 - **No more template files** - all content managed in Google Sheets
@@ -66,25 +70,31 @@ You can now manage all quiz questions, answers, and feedback messages using a fa
 - **Direct course links** for easy exploration
 
 **📝 Markdown Formatting Guide**:
+
 - `#### Header` creates section headings
 - `**Bold text**` makes text bold
 - `- List item` creates bullet points
 - Leave blank lines between sections for proper spacing
 
 **Example Description**:
+
 ```markdown
 #### What you'll learn:
+
 - **Teaching Methods**: How to engage students effectively
 - **Curriculum Design**: Planning and evaluation
 - **Classroom Management**: Creating positive learning environments
 
 #### Career opportunities:
+
 Teach in primary schools with opportunities for leadership roles.
 ```
 
 ### 📋 Overview Sheet (New!)
+
 **Purpose**: Read-only view showing complete quiz flow
-**What you see**: 
+**What you see**:
+
 - Hierarchical view of questions → options → next steps
 - Easy-to-read format for understanding quiz navigation
 - Updated automatically when you make changes
@@ -100,8 +110,9 @@ Teach in primary schools with opportunities for leadership roles.
 3. Click on the **text** column and edit directly
 4. Changes appear immediately in the quiz
 
-**Example**: 
-- Change "Which age group makes you light up the most?" 
+**Example**:
+
+- Change "Which age group makes you light up the most?"
 - To "Which age group excites you most about teaching?"
 
 ### 🔄 Updating Answer Options
@@ -112,7 +123,8 @@ Teach in primary schools with opportunities for leadership roles.
 4. Keep the emoji at the beginning - it's part of the visual design
 
 **Example**:
-- Change "🌱 Little ones (0–12)" 
+
+- Change "🌱 Little ones (0–12)"
 - To "🌱 Young children (0–12)"
 
 ### 💬 Modifying Feedback Messages
@@ -127,6 +139,7 @@ Feedback appears after students select an answer to encourage and inform them.
    - **feedbackMessage**: Informative, encouraging message
 
 **Example Feedback**:
+
 - **Title**: "Wonderful choice, {name}!"
 - **Message**: "Early childhood education is incredibly rewarding! 85% of graduates report high job satisfaction."
 
@@ -135,13 +148,15 @@ Feedback appears after students select an answer to encourage and inform them.
 The **nextId** column controls where students go after selecting an answer.
 
 **Question IDs** (go to another question):
+
 - q_age_group
-- q_primary_path  
+- q_primary_path
 - q_ps_hpe
 - q_ps_inclusion
 - q_secondary_area
 
-**Outcome IDs** (end with a result - must start with "out_"):
+**Outcome IDs** (end with a result - must start with "out\_"):
+
 - out_early_primary
 - out_primary_double
 - out_primary_single
@@ -203,6 +218,7 @@ After making edits:
 ### 🔍 Enhanced Error Detection
 
 The enhanced system will:
+
 - **Highlight invalid references** in red (like broken nextId links)
 - **Show missing feedback** in yellow (optional but recommended)
 - **Group related options** with color coding
@@ -250,26 +266,31 @@ If you encounter issues:
 ## Examples of Good Edits
 
 ### Good Question Text:
+
 - ✅ "What teaching subject area excites you most?"
 - ❌ "What is your preferred academic discipline for pedagogical instruction?"
 
 ### Good Feedback Messages:
+
 - ✅ "Music education combines passion with pedagogy! You'll inspire the next generation of musicians."
 - ❌ "Music is good."
 
 ### Good Answer Labels:
+
 - ✅ "🎶 Music & performing arts"
 - ❌ "Music and performing arts education with focus on instrumental and vocal pedagogy"
 
 ## Quick Reference
 
 ### Personalization Placeholder
+
 - Use `{name}` in feedback titles to insert the student's name
 - Example: "Great choice, {name}!" becomes "Great choice, Sarah!"
 
 ### Common Emojis for Education
+
 - 🌱 Early childhood
-- 📚 Primary education  
+- 📚 Primary education
 - 🎒 General education
 - 🎭 Arts & creativity
 - 🔬 Science & technology
