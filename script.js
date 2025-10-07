@@ -266,6 +266,16 @@ class QuizApp {
     button.setAttribute('aria-checked', 'false');
     button.setAttribute('tabindex', index === 0 ? '0' : '-1');
 
+    // Add option badge with letter (A, B, C, etc.)
+    const badgeSpan = document.createElement('span');
+    badgeSpan.className = 'option-badge';
+    badgeSpan.textContent = String.fromCharCode(65 + index); // A=65, B=66, etc.
+    button.appendChild(badgeSpan);
+
+    // Create container for text content
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'option-content';
+
     // Extract text from label (remove emoji/icon if present)
     const labelText = option.label;
     const emojiMatch = labelText.match(/^([^\w\s]+)\s*(.+)$/);
@@ -280,15 +290,17 @@ class QuizApp {
       textSpan.innerHTML = this.parseSimpleMarkdown(labelText);
     }
 
-    button.appendChild(textSpan);
+    contentContainer.appendChild(textSpan);
 
     // Add description if present
     if (option.description) {
       const descSpan = document.createElement('span');
       descSpan.className = 'option-description';
       descSpan.innerHTML = this.parseSimpleMarkdown(option.description);
-      button.appendChild(descSpan);
+      contentContainer.appendChild(descSpan);
     }
+
+    button.appendChild(contentContainer);
 
     button.addEventListener('click', () => this.selectOption(option.id, button));
     button.addEventListener('keydown', (e) => this.handleOptionKeydown(e, option.id, button));

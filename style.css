@@ -189,26 +189,6 @@ body {
   flex-direction: column;
 }
 
-.top-header {
-  background: var(--white);
-  width: 100%;
-  padding: 0.75rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid rgba(1, 109, 174, 0.1);
-}
-
-.brand-text {
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--monash-blue);
-  text-transform: uppercase;
-}
-
 .header {
   padding: 1.5rem 1rem;
   text-align: center;
@@ -349,14 +329,41 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
   position: relative;
   overflow: hidden;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
+}
+
+.option-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.option.selected .option-badge {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .option-text {
@@ -442,8 +449,8 @@ body {
 }
 
 .option:focus-visible {
-  outline: 3px solid var(--golden-yellow);
-  outline-offset: 2px;
+  /* outline: 3px solid var(--golden-yellow); */
+  /* outline-offset: 2px; */
 }
 
 .option.selected {
@@ -532,10 +539,10 @@ body {
   line-height: 1.2;
 }
 
-.btn:focus {
+/* .btn:focus {
   outline: 3px solid var(--golden-yellow);
   outline-offset: 2px;
-}
+} */
 
 .btn-primary {
   background: var(--monash-blue);
@@ -868,9 +875,9 @@ body {
   box-shadow: 0 8px 30px rgba(255, 217, 61, 0.4);
 }
 
-.feedback-continue:focus {
+/* .feedback-continue:focus {
   outline: 3px solid var(--sunny-yellow) !important;
-}
+} */
 
 /* Welcome Screen Styles */
 .welcome-content {
@@ -921,11 +928,11 @@ body {
   color: var(--text-primary);
 }
 
-.name-input:focus {
+/* .name-input:focus {
   outline: none;
   border-color: var(--golden-yellow);
   box-shadow: 0 0 0 3px rgba(255, 186, 0, 0.15);
-}
+} */
 
 .name-input::placeholder {
   color: #999999;
@@ -1121,12 +1128,6 @@ body {
     background: #1A2332;
     border-color: #2C5282;
     color: #ffffff;
-  }
-
-  .top-header {
-    background: #1A2332;
-    border-bottom-color: rgba(1, 109, 174, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   /* Dark mode styles for markdown in options */
