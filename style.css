@@ -219,7 +219,7 @@ body {
   width: 0%;
 }
 
-.main {
+.quiz-main {
   flex: 1;
   display: flex;
   align-items: flex-start;
@@ -303,6 +303,22 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* When options are side-by-side, position badge above text */
+  .options-count-2 .option {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .options-count-2 .option-content {
+    align-items: center;
+  }
+
+  .options-count-2 .option-text,
+  .options-count-2 .option-description {
+    text-align: center;
+  }
+
   .options-count-3.options-cards {
     grid-template-columns: 1fr;
 
@@ -340,12 +356,12 @@ body {
 }
 
 .option-badge {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   color: var(--white);
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -367,7 +383,7 @@ body {
 }
 
 .option-text {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-align: left;
   line-height: 1.2;
@@ -1037,7 +1053,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .main {
+  .quiz-main {
     padding: 0.75rem;
   }
 
@@ -1055,6 +1071,10 @@ body {
 
   .course-title {
     font-size: 1.4rem;
+  }
+
+  .option-text {
+    font-size: 1.1rem;
   }
 
   .feedback-content {
